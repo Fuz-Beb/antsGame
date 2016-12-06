@@ -71,7 +71,10 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
  * \return neant
 */
 void PrintParam(TParamDef * _tabParam, const int _nbParam) {
-/***** A ECRIRE *****/
+    
+    printf("-%c serveur (%s) [%s] \n", _tabParam[0].lettre, ParamTypeChaine[2], _tabParam[0].valeur.chaine);
+    printf("-%c appli (%s) [%s] \n", _tabParam[1].lettre, ParamTypeChaine[2], _tabParam[1].valeur.chaine);
+    printf("-%c tours (%s) [%d] \n", _tabParam[2].lettre, ParamTypeChaine[0], _tabParam[2].valeur.entier);    
 }
 
 /**
@@ -85,7 +88,7 @@ void PrintParam(TParamDef * _tabParam, const int _nbParam) {
  * \return >=0 : nombre de parametres mis a jour, <0 : erreur
 */
 int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const int _argc, const char * _argv[]) {
-/***** A ECRIRE *****/
+    
 }
 
 /**
