@@ -87,6 +87,12 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
 */
 void PrintParam(TParamDef * _tabParam, const int _nbParam) {
     
+	int i = 0;
+
+	while (_nrParam > i)
+	{
+		if (
+	}
     printf("-%c serveur (%s) [%s] \n", _tabParam[0].lettre, ParamTypeChaine[2], _tabParam[0].valeur.chaine);
     printf("-%c appli (%s) [%s] \n", _tabParam[1].lettre, ParamTypeChaine[2], _tabParam[1].valeur.chaine);
     printf("-%c tours (%s) [%d] \n", _tabParam[2].lettre, ParamTypeChaine[0], _tabParam[2].valeur.entier);    
@@ -103,16 +109,40 @@ void PrintParam(TParamDef * _tabParam, const int _nbParam) {
  * \return >=0 : nombre de parametres mis a jour, <0 : erreur
 */
 int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const int _argc, const char * _argv[]) {
-    /*int countUpdate = 0;
-    
-    ValeurParamToString(TParamDef * _tabParam, const int _index);
-    
-    
-    if(countUpdate < 0)
-        fatalError("Error with parrams");
-    
-    return countUpdate;
-    */
+
+	int i = 1, j = 0;
+
+	while (_argc > i)
+	{
+		if (strcmp(_argv[i], "-s"))
+		{
+			_tabParam[j].nom = "serveur";
+			_tabParam[j].type = PTchaine;
+			_tabParam[j].lettre = 's';
+			_tabParam[j].valeur.chaine = _argv[i + 1];
+		}
+		else if (strcmp(_argv[i], "-a"))
+		{
+			_tabParam[j].nom = "appli";
+			_tabParam[j].type = PTchaine;
+			_tabParam[j].lettre = 'a';
+			_tabParam[j].valeur.chaine = _argv[i + 1];
+		}
+		else if (strcmp(_argv[i], "-t"))
+		{
+			_tabParam[j].nom = "tours";
+			_tabParam[j].type = PTentier;
+			_tabParam[j].lettre = 't';
+			_tabParam[j].valeur.entier = atoi(_argv[i + 1]);
+		}
+		else
+		{
+			printf("ERROR");
+		}
+		
+		i += 2;
+		j++;
+	}
 }
 
 /**
