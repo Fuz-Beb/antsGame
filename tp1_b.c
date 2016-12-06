@@ -57,7 +57,9 @@ typedef struct {
  * \return une nouvelle chaine (qu'il faudra libérer par la suite)
 */
 char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
-/***** A ECRIRE *****/
+    char * strResult = strdup(_tabParam[_index].nom);
+
+    return strResult;
 }
 
 /**
