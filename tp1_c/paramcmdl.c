@@ -109,48 +109,40 @@ void PrintParam(TParamDef * _tabParam, const int _nbParam) {
  * \return >=0 : nombre de parametres mis a jour, <0 : erreur
 */
 int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const int _argc, const char * _argv[]) {
-    
-	int i = 1;
 
-	/** Recherche de la valeur -s dans les paramètres fournis */
-	while (i < _argc && strcmp(_argv[i], "-s") != 0)
-		i += 2;
+	char * option[] = {"-s","-a"};
+	char * nameParam[] = {"serveur","appli"};
+	int i = 1, j = 0;
 	
-	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
-	if (i >= _argc)
-		return -1;
+	/* Affectation des deux premiers paramètres */
+	while (j < _nbParam - 1)
+	{
+		/* Recherche de la valeur -s puis -a dans les paramètres fournis */
+		while (i < _argc && strcmp(_argv[i], option[j]) != 0)
+			i += 2;
+	
+		/* Si la valeur n'a pas été trouvé, une erreur est renvoyée */	
+		if (i >= _argc)
+			return -1;
 
-	/** Affection des valeurs pour le paramètre serveur */
-	_tabParam[0].nom = "serveur";
-	_tabParam[0].type = PTchaine;
-	_tabParam[0].lettre = 's';
-	_tabParam[0].valeur.chaine = _argv[i + 1];
-	i = 1;
-
-	/** Recherche de la valeur -a dans les paramètres fournis */
-	while (i < _argc && strcmp(_argv[i], "-a") != 0)
-		i += 2;
-
-	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
-	if (i >= _argc)
-		return -1;
-
-	/** Affection des valeurs pour le paramètre appli */
-	_tabParam[1].nom = "appli";
-	_tabParam[1].type = PTchaine;
-	_tabParam[1].lettre = 'a';
-	_tabParam[1].valeur.chaine = _argv[i + 1];
-	i = 1;
-
-	/** Recherche de la valeur -t dans les paramètres fournis */
+		/* Affectation des valeurs */
+		_tabParam[j].nom = nameParam[j];
+		_tabParam[j].type = PTchaine;
+		_tabParam[j].lettre = option[j][1];
+		_tabParam[j].valeur.chaine = _argv[i + 1];
+		i = 1;
+		j++;
+	}
+	
+	/* Recherche de la valeur -t dans les paramètres fournis */
 	while (i < _argc && strcmp(_argv[i], "-t") != 0)
-		i += 2;
+			i += 2;
 
-	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
+	/* Si la valeur n'a pas été trouvé, une erreur est renvoyée */
 	if (i >= _argc)
-		return -1;
+			return -1;
 
-	/** Affection des valeurs pour le paramètre tours */
+	/* Affectation des valeurs */
 	_tabParam[2].nom = "tours";
 	_tabParam[2].type = PTentier;
 	_tabParam[2].lettre = 't';
