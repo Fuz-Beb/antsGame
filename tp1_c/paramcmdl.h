@@ -1,3 +1,14 @@
+/**
+ * \file paramcmdl.h
+ * \brief Contient les prototypes des fonctions
+ * \author NM
+ * \author Pierrick BOBET
+ * \author Rémy BOUTELOUP
+ * \version 0.1
+ * \date 06/12/2016
+ *
+ */
+
 #ifndef PARAMCMDL_H
 #define PARAMCMDL_H
 

@@ -1,6 +1,6 @@
 /**
  * \file paramcmdl.c
- * \brief Éclatage en plusieurs fichiers
+ * \brief Contient le code des fonctions
  * \author NM
  * \author Pierrick BOBET
  * \author Rémy BOUTELOUP
@@ -9,7 +9,6 @@
  *
  */
 
-#include "paramcmdl.h"
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -58,6 +57,7 @@ typedef struct {
  * \return une nouvelle chaine (qu'il faudra libérer par la suite)
 */
 char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
+    
     char * strResult;
     char buffer[128];
     
@@ -87,9 +87,15 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
  * \return neant
 */
 void PrintParam(TParamDef * _tabParam, const int _nbParam) {
+    
+    /** Affichage des valeurs du paramètre serveur */
     printf("-%c serveur (%s) [%s] \n", _tabParam[0].lettre, ParamTypeChaine[2], _tabParam[0].valeur.chaine);
+
+    /** Affichage des valeurs du paramètre appli */
     printf("-%c appli (%s) [%s] \n", _tabParam[1].lettre, ParamTypeChaine[2], _tabParam[1].valeur.chaine);
-    printf("-%c tours (%s) [%d] \n", _tabParam[2].lettre, ParamTypeChaine[0], _tabParam[2].valeur.entier);    
+
+    /** Affichage des valeurs du paramètre tours */
+    printf("-%c tours (%s) [%d] \n", _tabParam[2].lettre, ParamTypeChaine[0], _tabParam[2].valeur.entier);     
 }
 
 /**
@@ -104,5 +110,51 @@ void PrintParam(TParamDef * _tabParam, const int _nbParam) {
 */
 int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const int _argc, const char * _argv[]) {
     
-    return 0;
+	int i = 1;
+
+	/** Recherche de la valeur -s dans les paramètres fournis */
+	while (i < _argc && strcmp(_argv[i], "-s") != 0)
+		i += 2;
+	
+	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
+	if (i >= _argc)
+		return -1;
+
+	/** Affection des valeurs pour le paramètre serveur */
+	_tabParam[0].nom = "serveur";
+	_tabParam[0].type = PTchaine;
+	_tabParam[0].lettre = 's';
+	_tabParam[0].valeur.chaine = _argv[i + 1];
+	i = 1;
+
+	/** Recherche de la valeur -a dans les paramètres fournis */
+	while (i < _argc && strcmp(_argv[i], "-a") != 0)
+		i += 2;
+
+	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
+	if (i >= _argc)
+		return -1;
+
+	/** Affection des valeurs pour le paramètre appli */
+	_tabParam[1].nom = "appli";
+	_tabParam[1].type = PTchaine;
+	_tabParam[1].lettre = 'a';
+	_tabParam[1].valeur.chaine = _argv[i + 1];
+	i = 1;
+
+	/** Recherche de la valeur -t dans les paramètres fournis */
+	while (i < _argc && strcmp(_argv[i], "-t") != 0)
+		i += 2;
+
+	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
+	if (i >= _argc)
+		return -1;
+
+	/** Affection des valeurs pour le paramètre tours */
+	_tabParam[2].nom = "tours";
+	_tabParam[2].type = PTentier;
+	_tabParam[2].lettre = 't';
+	_tabParam[2].valeur.entier = atoi(_argv[i + 1]);
+
+	return _argc;
 }

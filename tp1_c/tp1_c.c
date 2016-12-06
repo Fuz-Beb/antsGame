@@ -1,3 +1,14 @@
+/**
+ * \file tp1_c.c
+ * \brief Contient la fonction main
+ * \author NM
+ * \author Pierrick BOBET
+ * \author Rémy BOUTELOUP
+ * \version 0.1
+ * \date 06/12/2016
+ *
+ */
+
 #include "paramcmdl.h"
 
 /**
@@ -10,23 +21,31 @@
 */
 
 int main (const int _argc, const char * _argv[]) {
-  /* declaration des paramtres avec leur type+valeurs par defaut */
-  TParamDef tab_param[] = {
+    
+    /* declaration des paramtres avec leur type+valeurs par defaut */
+    TParamDef tab_param[] = {
     {"serveur",PTchaine,'s',.valeur.chaine="??"},
     {"appli",PTchaine,'a',.valeur.chaine=""},
     {"tours",PTentier,'t',.valeur.entier=200}};
-  int nb_param = 3;
-  int result_arg;
+    int nb_param = 3;
+    int result_arg;
 
-  /* affichage des formats de parametre */
-  printf("Valeurs par defaut :\n");
-  PrintParam(tab_param,nb_param);
-  /* analyse de la ligne de commande */
-  result_arg = ReadParamFromCommandLine(tab_param,nb_param,_argc,_argv);
-  /* affichage des nouveaux parametres */
-  printf("Valeurs des parametres :\n");
-  PrintParam(tab_param,nb_param);
+    /* affichage des formats de parametre */
+    printf("Valeurs par defaut :\n");
+    PrintParam(tab_param,nb_param);
+    /* analyse de la ligne de commande */
+    result_arg = ReadParamFromCommandLine(tab_param,nb_param,_argc,_argv);
 
+    if (result_arg < 0)
+    {
+        printf("Erreur de syntaxe dans la saisie des paramètres du programme \nLe programme s'est terminée\n");
+        exit(1);
+    }
 
-  return 0;
+    /* affichage des nouveaux parametres */
+    printf("Valeurs des parametres :\n");
+    PrintParam(tab_param,nb_param);
+
+    
+    return 0;
 }
