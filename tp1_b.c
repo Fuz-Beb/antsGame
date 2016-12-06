@@ -57,8 +57,23 @@ typedef struct {
  * \return une nouvelle chaine (qu'il faudra libérer par la suite)
 */
 char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
-    char * strResult = strdup(_tabParam[_index].nom);
-
+    char * strResult;
+    char buffer[128];
+    
+    memset(buffer, '\0', 128); /* Initialisation du buffer */
+    
+    /* Traitement selon le type à l'index _index */
+    if(_tabParam[_index].type == PTentier)
+        sprintf(buffer, "%d", _tabParam[_index].valeur.entier);
+        
+    if(_tabParam[_index].type == PTreel)
+        sprintf(buffer, "%.2f", _tabParam[_index].valeur.reel);
+        
+    if(_tabParam[_index].type == PTchaine)
+        strncpy(buffer, _tabParam[_index].valeur.chaine, strlen(_tabParam[_index].valeur.chaine));
+        
+    strResult = strdup(buffer);
+    
     return strResult;
 }
 
@@ -88,7 +103,16 @@ void PrintParam(TParamDef * _tabParam, const int _nbParam) {
  * \return >=0 : nombre de parametres mis a jour, <0 : erreur
 */
 int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const int _argc, const char * _argv[]) {
+    /*int countUpdate = 0;
     
+    ValeurParamToString(TParamDef * _tabParam, const int _index);
+    
+    
+    if(countUpdate < 0)
+        fatalError("Error with parrams");
+    
+    return countUpdate;
+    */
 }
 
 /**
