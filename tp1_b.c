@@ -60,9 +60,9 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
     char * strResult;
     char buffer[128];
     
-    memset(buffer, '\0', 128); /* Initialisation du buffer */
+    memset(buffer, '\0', 128); /** Initialisation du buffer */
     
-    /* Traitement selon le type à l'index _index */
+    /** Traitement selon le type à l'index _index */
     if(_tabParam[_index].type == PTentier)
         sprintf(buffer, "%d", _tabParam[_index].valeur.entier);
         
@@ -86,15 +86,14 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
  * \return neant
 */
 void PrintParam(TParamDef * _tabParam, const int _nbParam) {
-    
-	int i = 0;
 
-	while (_nrParam > i)
-	{
-		if (
-	}
+		/** Affichage des valeurs du paramètre serveur */
     printf("-%c serveur (%s) [%s] \n", _tabParam[0].lettre, ParamTypeChaine[2], _tabParam[0].valeur.chaine);
+
+		/** Affichage des valeurs du paramètre appli */
     printf("-%c appli (%s) [%s] \n", _tabParam[1].lettre, ParamTypeChaine[2], _tabParam[1].valeur.chaine);
+
+		/** Affichage des valeurs du paramètre tours */
     printf("-%c tours (%s) [%d] \n", _tabParam[2].lettre, ParamTypeChaine[0], _tabParam[2].valeur.entier);    
 }
 
@@ -110,39 +109,53 @@ void PrintParam(TParamDef * _tabParam, const int _nbParam) {
 */
 int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const int _argc, const char * _argv[]) {
 
-	int i = 1, j = 0;
+	int i = 1;
 
-	while (_argc > i)
-	{
-		if (strcmp(_argv[i], "-s"))
-		{
-			_tabParam[j].nom = "serveur";
-			_tabParam[j].type = PTchaine;
-			_tabParam[j].lettre = 's';
-			_tabParam[j].valeur.chaine = _argv[i + 1];
-		}
-		else if (strcmp(_argv[i], "-a"))
-		{
-			_tabParam[j].nom = "appli";
-			_tabParam[j].type = PTchaine;
-			_tabParam[j].lettre = 'a';
-			_tabParam[j].valeur.chaine = _argv[i + 1];
-		}
-		else if (strcmp(_argv[i], "-t"))
-		{
-			_tabParam[j].nom = "tours";
-			_tabParam[j].type = PTentier;
-			_tabParam[j].lettre = 't';
-			_tabParam[j].valeur.entier = atoi(_argv[i + 1]);
-		}
-		else
-		{
-			printf("ERROR");
-		}
-		
+	/** Recherche de la valeur -s dans les paramètres fournis */
+	while (i < _argc && strcmp(_argv[i], "-s") != 0)
 		i += 2;
-		j++;
-	}
+	
+	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
+	if (i >= _argc)
+		return -1;
+
+	/** Affection des valeurs pour le paramètre serveur */
+	_tabParam[0].nom = "serveur";
+	_tabParam[0].type = PTchaine;
+	_tabParam[0].lettre = 's';
+	_tabParam[0].valeur.chaine = _argv[i + 1];
+	i = 1;
+
+	/** Recherche de la valeur -a dans les paramètres fournis */
+	while (i < _argc && strcmp(_argv[i], "-a") != 0)
+		i += 2;
+
+	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
+	if (i >= _argc)
+		return -1;
+
+	/** Affection des valeurs pour le paramètre appli */
+	_tabParam[1].nom = "appli";
+	_tabParam[1].type = PTchaine;
+	_tabParam[1].lettre = 'a';
+	_tabParam[1].valeur.chaine = _argv[i + 1];
+	i = 1;
+
+	/** Recherche de la valeur -t dans les paramètres fournis */
+	while (i < _argc && strcmp(_argv[i], "-t") != 0)
+		i += 2;
+
+	/** Si la valeur n'a pas été trouvé, une erreur est renvoyée */
+	if (i >= _argc)
+		return -1;
+
+	/** Affection des valeurs pour le paramètre tours */
+	_tabParam[2].nom = "tours";
+	_tabParam[2].type = PTentier;
+	_tabParam[2].lettre = 't';
+	_tabParam[2].valeur.entier = atoi(_argv[i + 1]);
+
+	return _argc;
 }
 
 /**
@@ -167,6 +180,13 @@ int main (const int _argc, const char * _argv[]) {
   PrintParam(tab_param,nb_param);
   /* analyse de la ligne de commande */
   result_arg = ReadParamFromCommandLine(tab_param,nb_param,_argc,_argv);
+
+	if (result_arg < 0)
+	{
+		printf("Erreur de syntaxe dans la saisie des paramètres du programme \nLe programme s'est terminée\n");
+		exit(1);
+	}
+
   /* affichage des nouveaux parametres */
   printf("Valeurs des parametres :\n");
   PrintParam(tab_param,nb_param);
