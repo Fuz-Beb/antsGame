@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.21)  6 DEC 2016 22:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.11.19)  9 DEC 2016 11:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1269,7 +1269,7 @@ Package pdftex.def Info: paramcmdl_8c__incl.pdf used on input line 16.
 File: paramcmdl_8c__dep__incl.pdf Graphic file (type pdf)
 
 <use paramcmdl_8c__dep__incl.pdf>
-Package pdftex.def Info: paramcmdl_8c__dep__incl.pdf used on input line 24.
+Package pdftex.def Info: paramcmdl_8c__dep__incl.pdf used on input line 23.
 (pdftex.def)             Requested size: 153.0pt x 212.01193pt.
 
 Underfull \vbox (badness 6125) has occurred while \output is active []
@@ -1278,184 +1278,180 @@ Underfull \vbox (badness 6125) has occurred while \output is active []
 
  <./paramcmdl_8c__incl.pdf>]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.09995pt on input line 31.
+(Font)              scaled to size 8.09995pt on input line 30.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 31.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 30.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 31.
+(Font)              scaled to size 8.09995pt on input line 30.
 LaTeX Font Info:    Font shape `TS1/phv/m/it' in size <9> not available
-(Font)              Font shape `TS1/phv/m/sl' tried instead on input line 46.
+(Font)              Font shape `TS1/phv/m/sl' tried instead on input line 45.
 LaTeX Font Info:    Font shape `TS1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 46.
+(Font)              scaled to size 8.09995pt on input line 45.
 
-Underfull \hbox (badness 10000) detected at line 61
+Underfull \hbox (badness 10000) detected at line 60
 [][][]
  []
 
 [8 <./paramcmdl_8c__dep__incl.pdf>]
-Underfull \hbox (badness 10000) detected at line 68
+Underfull \hbox (badness 10000) detected at line 67
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 71
+Underfull \hbox (badness 10000) detected at line 70
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 85
+Underfull \hbox (badness 10000) detected at line 84
 [][][]
  []
 
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 89.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 88.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 89.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 88.
 LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
-(Font)              scaled to size 8.99994pt on input line 89.
+(Font)              scaled to size 8.99994pt on input line 88.
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <7> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 89.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 88.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <7> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 89.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 88.
 LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
-(Font)              scaled to size 6.29996pt on input line 89.
+(Font)              scaled to size 6.29996pt on input line 88.
 LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <10> not available
-(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 105.
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 104.
 LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
-(Font)              scaled to size 8.99994pt on input line 105.
+(Font)              scaled to size 8.99994pt on input line 104.
 LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <7> not available
-(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 105.
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 104.
 LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
-(Font)              scaled to size 6.29996pt on input line 105.
+(Font)              scaled to size 6.29996pt on input line 104.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 105.
+(hyperref)                removing `subscript' on input line 104.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 105.
+(hyperref)                removing `subscript' on input line 104.
 
 
-Underfull \hbox (badness 10000) detected at line 117
+Underfull \hbox (badness 10000) detected at line 116
 [][][]
  []
 
 [9]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 133.
+(hyperref)                removing `subscript' on input line 132.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 133.
+(hyperref)                removing `subscript' on input line 132.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 133.
+(hyperref)                removing `subscript' on input line 132.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 133.
+(hyperref)                removing `subscript' on input line 132.
 
 
-Underfull \hbox (badness 10000) detected at line 149
+Underfull \hbox (badness 10000) detected at line 148
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 175.
+(hyperref)                removing `subscript' on input line 158.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 175.
+(hyperref)                removing `subscript' on input line 158.
 
 
-Underfull \hbox (badness 10000) detected at line 187
+Underfull \hbox (badness 10000) detected at line 170
 [][][]
  []
 
-) (./paramcmdl_8h.tex [10]
-<paramcmdl_8h__incl.pdf, id=339, 328.22626pt x 212.795pt>
+) (./paramcmdl_8h.tex
+<paramcmdl_8h__incl.pdf, id=333, 328.22626pt x 212.795pt>
 File: paramcmdl_8h__incl.pdf Graphic file (type pdf)
 
 <use paramcmdl_8h__incl.pdf>
-Package pdftex.def Info: paramcmdl_8h__incl.pdf used on input line 14.
+Package pdftex.def Info: paramcmdl_8h__incl.pdf used on input line 13.
 (pdftex.def)             Requested size: 327.0pt x 212.0022pt.
-
+ [10]
 <paramcmdl_8h__dep__incl.pdf, id=340, 153.57375pt x 156.585pt>
 File: paramcmdl_8h__dep__incl.pdf Graphic file (type pdf)
 
 <use paramcmdl_8h__dep__incl.pdf>
-Package pdftex.def Info: paramcmdl_8h__dep__incl.pdf used on input line 22.
+Package pdftex.def Info: paramcmdl_8h__dep__incl.pdf used on input line 20.
 (pdftex.def)             Requested size: 153.0pt x 156.00879pt.
- [11 <./paramcmdl_8h__incl.pdf> <./paramcmdl_8h__dep__incl.pdf
+
+Underfull \hbox (badness 10000) detected at line 37
+[][][]
+ []
+
+[11 <./paramcmdl_8h__incl.pdf> <./paramcmdl_8h__dep__incl.pdf
 
 pdfTeX warning: pdflatex (file ./paramcmdl_8h__dep__incl.pdf): PDF inclusion: m
 ultiple pdfs with page group included in a single page
 >]
-Underfull \hbox (badness 10000) detected at line 39
+Underfull \hbox (badness 10000) detected at line 44
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 46
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 49
+Underfull \hbox (badness 10000) detected at line 47
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 62.
+(hyperref)                removing `subscript' on input line 60.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 62.
+(hyperref)                removing `subscript' on input line 60.
 
 
-Underfull \hbox (badness 10000) detected at line 74
+Underfull \hbox (badness 10000) detected at line 72
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 90.
+(hyperref)                removing `subscript' on input line 88.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 90.
+(hyperref)                removing `subscript' on input line 88.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 90.
+(hyperref)                removing `subscript' on input line 88.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 90.
-
-
-Overfull \vbox (23.03334pt too high) has occurred while \output is active []
-
+(hyperref)                removing `subscript' on input line 88.
 
 [12]
-Underfull \hbox (badness 10000) detected at line 106
+Underfull \hbox (badness 10000) detected at line 104
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 132.
+(hyperref)                removing `subscript' on input line 114.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 132.
+(hyperref)                removing `subscript' on input line 114.
 
 
-Underfull \hbox (badness 10000) detected at line 144
+Underfull \hbox (badness 10000) detected at line 126
 [][][]
  []
 
@@ -1463,42 +1459,38 @@ Underfull \hbox (badness 10000) detected at line 144
 File: tp1__c_8c__incl.pdf Graphic file (type pdf)
 
 <use tp1__c_8c__incl.pdf>
-Package pdftex.def Info: tp1__c_8c__incl.pdf used on input line 14.
+Package pdftex.def Info: tp1__c_8c__incl.pdf used on input line 13.
 (pdftex.def)             Requested size: 327.0pt x 268.00278pt.
-
-Underfull \vbox (badness 7397) has occurred while \output is active []
-
- [13]
-Underfull \hbox (badness 10000) detected at line 27
+ [13 <./tp1__c_8c__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 26
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 34
+Underfull \hbox (badness 10000) detected at line 33
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 37
+Underfull \hbox (badness 10000) detected at line 36
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 50.
+(hyperref)                removing `subscript' on input line 49.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 50.
+(hyperref)                removing `subscript' on input line 49.
 
-[14 <./tp1__c_8c__incl.pdf>]
-Underfull \hbox (badness 10000) detected at line 62
+
+Underfull \hbox (badness 10000) detected at line 61
 [][][]
  []
 
-) [15] [16
+) [14] (./refman.ind [15
 
-] (./refman.ind [17
 
 
 ])
@@ -1512,13 +1504,13 @@ Package rerunfilecheck Info: File `refman.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 161.
  ) 
 Here is how much of TeX's memory you used:
- 14959 strings out of 493029
- 213182 string characters out of 6136233
- 311603 words of memory out of 5000000
+ 14957 strings out of 493029
+ 213168 string characters out of 6136233
+ 311602 words of memory out of 5000000
  18132 multiletter control sequences out of 15000+600000
  68182 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,16n,92p,2169b,634s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,16n,92p,2169b,593s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist
@@ -1528,10 +1520,10 @@ urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on refman.pdf (21 pages, 147924 bytes).
+Output written on refman.pdf (19 pages, 146856 bytes).
 PDF statistics:
- 500 PDF objects out of 1000 (max. 8388607)
- 451 compressed objects within 5 object streams
- 100 named destinations out of 1000 (max. 500000)
+ 492 PDF objects out of 1000 (max. 8388607)
+ 445 compressed objects within 5 object streams
+ 98 named destinations out of 1000 (max. 500000)
  319 words of extra memory for PDF output out of 10000 (max. 10000000)
 

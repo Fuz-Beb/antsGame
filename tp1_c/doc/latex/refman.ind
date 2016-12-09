@@ -32,7 +32,7 @@
     \subitem {Read\+Param\+From\+Command\+Line}, \hyperpage{9}
     \subitem {T\+Param\+Type}, \hyperpage{9}
     \subitem {Valeur\+Param\+To\+String}, \hyperpage{10}
-  \item {paramcmdl.\+h}, \hyperpage{11}
+  \item {paramcmdl.\+h}, \hyperpage{10}
     \subitem {Print\+Param}, \hyperpage{12}
     \subitem {Read\+Param\+From\+Command\+Line}, \hyperpage{12}
     \subitem {Valeur\+Param\+To\+String}, \hyperpage{13}
