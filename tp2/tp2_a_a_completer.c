@@ -59,6 +59,8 @@ typedef struct{
 void addIntSymbolToLexData(TLex * _lexData, const int _val);
 void addRealSymbolToLexData(TLex * _lexData, const float _val);
 void addStringSymbolToLexData(TLex * _lexData, char * _val);
+int insertStringLexData(TLex * _lex_data, char * _data, char * buffer, int i, int nbLignes);
+int insertNombreLexData(TLex * _lex_data, char * _data, char * buffer, int i, int nbLignes);
 
 /**
  * \fn int isSep(char _symb)
@@ -86,16 +88,18 @@ int isSep(const char _symb)
 TLex * initLexData(char * _data)
 {
 	TLex * _lex_data = (TLex*) malloc (sizeof(TLex));
-	char buffer[32];
+	_lex_data->tableSymboles = (TSymbole*) malloc (sizeof(TSymbole));
+    char buffer[32];
+
 	memset(buffer, '\0', 32);
-	int i = 0, z = 0, nbLignes = 0;
+	int i = 0, nbLignes = 0;
 
 	if (_lex_data == NULL)
 		exit(0);
 
 	while (strlen(_data) != i)
 	{
-		_lex_data = realloc(_lex_data, sizeof(TLex) * (size_t)_lex_data->nbSymboles + 1);
+		_lex_data->tableSymboles = realloc(_lex_data->tableSymboles, sizeof(TSymbole) * ((size_t)_lex_data->nbSymboles + 1));
 
 		if (_lex_data == NULL)
 			exit(0);
@@ -106,47 +110,13 @@ TLex * initLexData(char * _data)
 		/* SI CE N'EST PAS UN ESPACE */
 		if (isSep(_data[i]) == 0)
 		{	/* TRAITEMENT CHAINE */
-			if (_data[i] == '"')
-			{
-                buffer[z] = '"';
-                i++;
-                z++;
+            if (_data[i] == '"')
+                i = insertStringLexData(_lex_data, _data, buffer, i, nbLignes);
 
-                while (_data[i] != '"')
-                {
-                    buffer[z] = _data[i];
-                    z++;
-                    i++;
-                }
-
-                buffer[z] = '"';
-                i++;
-
-                _lex_data->startPos = _data + i;
-                _lex_data->nbLignes = nbLignes;
-                addStringSymbolToLexData(_lex_data, buffer);
-			}/* TRAITEMENT NOMBRE */
+			/* TRAITEMENT NOMBRE */
 			else if (_data[i] >= '0' && _data[i] <= '9')
             {
-                while ((_data[i] >= '0' && _data[i] <= '9' ) || _data[i] == '.')
-                {
-                    buffer[z] = _data[i];
-                    z++;
-                    i++;
-                }
-
-                if (strchr(buffer, '.'))
-                {
-                    _lex_data->startPos = _data + i;
-                    _lex_data->nbLignes = nbLignes;
-                    addRealSymbolToLexData(_lex_data, atof(buffer));
-                }
-                else
-                {
-                    _lex_data->startPos = _data + i;
-                    _lex_data->nbLignes = nbLignes;
-                    addIntSymbolToLexData(_lex_data, atoi(buffer));
-                }
+                i = insertNombreLexData(_lex_data, _data, buffer, i, nbLignes);
             }/* TRAITEMENT CARACTERE */
 			else
 			{
@@ -159,11 +129,64 @@ TLex * initLexData(char * _data)
 		else
 			i++;
 
-		z = 0;
 		memset(buffer, '\0', 32);
 	}
 	return _lex_data;
 }
+
+/* Mettre des commentaires Doxygen */
+int insertStringLexData(TLex * _lex_data, char * _data, char * buffer, int i, int nbLignes)
+{
+    int z = 0;
+
+    buffer[z] = '"';
+    i++;
+    z++;
+
+    while (_data[i] != '"')
+    {
+        buffer[z] = _data[i];
+        z++;
+        i++;
+    }
+
+    buffer[z] = '"';
+    i++;
+
+    _lex_data->startPos = _data + i;
+    _lex_data->nbLignes = nbLignes;
+    addStringSymbolToLexData(_lex_data, buffer);
+
+    return i;
+}
+
+/* Mettre des commentaires Doxygen */
+int insertNombreLexData(TLex * _lex_data, char * _data, char * buffer, int i, int nbLignes)
+{
+    int z = 0;
+
+    while ((_data[i] >= '0' && _data[i] <= '9' ) || _data[i] == '.')
+    {
+        buffer[z] = _data[i];
+        z++;
+        i++;
+    }
+
+    if (strchr(buffer, '.'))
+    {
+        _lex_data->startPos = _data + i;
+        _lex_data->nbLignes = nbLignes;
+        addRealSymbolToLexData(_lex_data, atof(buffer));
+    }
+    else
+    {
+        _lex_data->startPos = _data + i;
+        _lex_data->nbLignes = nbLignes;
+        addIntSymbolToLexData(_lex_data, atoi(buffer));
+    }
+    return i;
+}
+
 
 
 
@@ -241,13 +264,12 @@ void printLexData(TLex * _lexData) {
  */
 void addIntSymbolToLexData(TLex * _lexData, const int _val)
 {
-    int nbrSymbole = _lexData->nbSymboles;
-
 	if (_lexData != NULL)
 	{
+	    _lexData->nbSymboles += 1;
+	    int nbrSymbole = _lexData->nbSymboles;
 		_lexData->tableSymboles[nbrSymbole - 1].type = JSON_INT_NUMBER;
 		_lexData->tableSymboles[nbrSymbole - 1].val.entier = _val;
-		_lexData->nbSymboles += 1;
 	}
 }
 
@@ -260,13 +282,12 @@ void addIntSymbolToLexData(TLex * _lexData, const int _val)
  */
 void addRealSymbolToLexData(TLex * _lexData, const float _val)
 {
-    int nbrSymbole = _lexData->nbSymboles;
-
 	if (_lexData != NULL)
 	{
+	    _lexData->nbSymboles += 1;
+	    int nbrSymbole = _lexData->nbSymboles;
 		_lexData->tableSymboles[nbrSymbole - 1].type = JSON_REAL_NUMBER;
 		_lexData->tableSymboles[nbrSymbole - 1].val.reel = _val;
-		_lexData->nbSymboles += 1;
 	}
 }
 
@@ -279,13 +300,12 @@ void addRealSymbolToLexData(TLex * _lexData, const float _val)
  */
 void addStringSymbolToLexData(TLex * _lexData, char * _val)
 {
-    int nbrSymbole = _lexData->nbSymboles;
-
-	if (_lexData != NULL)
+    if (_lexData != NULL)
     {
+        _lexData->nbSymboles += 1;
+        int nbrSymbole = _lexData->nbSymboles;
         _lexData->tableSymboles[nbrSymbole - 1].type = JSON_STRING;
         _lexData->tableSymboles[nbrSymbole - 1].val.chaine = strdup(_val); // Bebo - Possibilite de fuite car si on met juste = val et qu'on le libere...
-        _lexData->nbSymboles += 1;
     }
 }
 
