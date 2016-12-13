@@ -179,15 +179,43 @@ TLex * initLexData(char * _data)
  */
 void deleteLexData(TLex ** _lexData)
 {
+	int i = 0, j = 0;
 
-    /* if(&_lexData->tableSymboles.type == JSON_STRING)
-    {
-        free(_lexData->tableSymboles->val.chaine);
-    }
+	while(_lexData[i+1] != NULL)
+	{
+		while(_lexData[i]->tableSymboles[j].val.chaine != NULL && _lexData[i]->tableSymboles[j].type == JSON_STRING)
+		{
+			free(_lexData[i]->tableSymboles[j].val.chaine);
 
-    free(&(_lexData.data));
-    free(_lexData.startPos);
-    free(_lexData.tableSymboles); */
+			j++;
+		}
+
+    free(_lexData[i]->data);
+    free(_lexData[i]->startPos);
+    free(_lexData[i]->tableSymboles);
+		free(_lexData[i]);
+
+		i++;
+		j = 0;
+	}
+
+	if(_lexData[i] != NULL)
+	{
+		while(_lexData[i]->tableSymboles[j].val.chaine != NULL && _lexData[i]->tableSymboles[j].type == JSON_STRING)
+		{
+			free(_lexData[i]->tableSymboles[j].val.chaine);
+
+			j++;
+		}
+
+		free(_lexData[i]->data);
+		free(_lexData[i]->startPos);
+		free(_lexData[i]->tableSymboles);
+		free(_lexData[i]);
+
+		i++;
+		j = 0;
+	}
 }
 
 /**
@@ -297,4 +325,3 @@ int main() {
 	free(test);
 	return 0;
 }
-
