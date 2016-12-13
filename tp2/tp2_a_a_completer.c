@@ -81,21 +81,21 @@ TLex * initLexData(char * _data)
 {
 	TLex * lex_data = (TLex*) malloc (sizeof(TLex));
 	int i = 0, j = 0;
-	
+
 	if (lex_data == NULL)
 		exit -1;
-	
+
 	while (strlen(_data) != i)
 	{
 		lex_data = realloc(lex_data, sizeof(TLex) * j + 1);
 
 		if (lex_data == NULL)
 			exit -1;
-		
+
 		/* SI CE N'EST PAS UN ESPACE */
 		if (isSep(_data[i]) == 0)
 		{
-			if ((_data[i] < 'a' || _data[i] > 'z') && _data[i] != '"')
+			if ((_data[i] < 'a' && _data[i] > 'z') || (_data[i] < 'A' && _data[i] > 'Z') && _data[i] != '"')
 			{
 				if (_data[i] >= '0' && _data[i] <= '9')
 				{
@@ -107,7 +107,7 @@ TLex * initLexData(char * _data)
 				{
 					/* TRAITEMENT CARACTERE SPECIAL TROUVE */
 					/* L'AJOUTER TEL QUEL DANS LA STRUCTURE */
-				}	
+				}
 			}
 			else
 			{
@@ -115,7 +115,7 @@ TLex * initLexData(char * _data)
 				/* FAIRE UNE BOUCLE POUR FABRIQUER LE MOT */
 				/* PENSER A INCREMENTER LE i ICI */
 			}
-			
+
 			/* ATTENTION AVEC DE i */
 			/* IL DOIT SUREMENT DISPARAITRE APRES AVOIR FAIT LE TRAITEMENT AVEC LES 				MOTS ET NOMBRES */
 			i++;
@@ -125,7 +125,7 @@ TLex * initLexData(char * _data)
 			/* 	TRAITEMENT ESPACE TROUVE */
 			i++;
 		}
-		
+
 		/* VALEUR DE LA TAILLE DU TABLEAU DE STRUCTURE */
 		j++;
 	}
@@ -181,14 +181,8 @@ void addIntSymbolToLexData(TLex * _lexData, const int _val)
  * \param[in/out] _lexData donnees de l'analyseur lexical
  * \param[in] _val valeur reelle a ajouter
  */
-void addRealSymbolToLexData(TLex * _lexData, const float _val)
-{
-	if (_lexData != NULL)
-	{
-		_lexData->tableSymboles->type = JSON_REAL_NUMBER;
-		_lexData->tableSymboles->val.reel = _val;
-		_lexData->nbSymboles += 1;
-	}
+void addRealSymbolToLexData(TLex * _lexData, const float _val) {
+/****** A ECRIRE *******/
 }
 
  /**
@@ -199,7 +193,13 @@ void addRealSymbolToLexData(TLex * _lexData, const float _val)
  * \param[in] _val chaine a ajouter
  */
 void addStringSymbolToLexData(TLex * _lexData, char * _val) {
-/****** A ECRIRE *******/
+
+    if (_lexData != NULL)
+	{
+		_lexData->tableSymboles->type = JSON_STRING;
+		_lexData->tableSymboles->val.chaine = strdup(_val); // Bebo - Possibilite de fuite car si on met juste = val et qu'on le libere...
+		_lexData->nbSymboles += 1;
+	}
 }
 
 /**
