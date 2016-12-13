@@ -181,8 +181,14 @@ void addIntSymbolToLexData(TLex * _lexData, const int _val)
  * \param[in/out] _lexData donnees de l'analyseur lexical
  * \param[in] _val valeur reelle a ajouter
  */
-void addRealSymbolToLexData(TLex * _lexData, const float _val) {
-/****** A ECRIRE *******/
+void addRealSymbolToLexData(TLex * _lexData, const float _val)
+{
+	if (_lexData != NULL)
+	{
+		_lexData->tableSymboles->type = JSON_REAL_NUMBER;
+		_lexData->tableSymboles->val.reel = _val;
+		_lexData->nbSymboles += 1;
+	}
 }
 
  /**
