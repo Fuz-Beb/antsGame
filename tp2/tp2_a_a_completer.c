@@ -179,7 +179,7 @@ TLex * initLexData(char * _data)
  */
 void deleteLexData(TLex ** _lexData)
 {
-	
+
     /* if(&_lexData->tableSymboles.type == JSON_STRING)
     {
         free(_lexData->tableSymboles->val.chaine);
@@ -187,7 +187,7 @@ void deleteLexData(TLex ** _lexData)
 
     free(&(_lexData.data));
     free(_lexData.startPos);
-    free(_lexData.tableSymboles); */ 
+    free(_lexData.tableSymboles); */
 }
 
 /**
@@ -251,10 +251,12 @@ void addRealSymbolToLexData(TLex * _lexData, const float _val)
  */
 void addStringSymbolToLexData(TLex * _lexData, char * _val)
 {
+    int nbrSymbole = _lexData->nbSymboles;
+
 	if (_lexData != NULL)
     {
-        _lexData->tableSymboles[nbrSymbole - 1]type = JSON_STRING;
-        _lexData->tableSymboles[nbrSymbole - 1]val.chaine = strdup(_val); // Bebo - Possibilite de fuite car si on met juste = val et qu'on le libere...
+        _lexData->tableSymboles[nbrSymbole - 1].type = JSON_STRING;
+        _lexData->tableSymboles[nbrSymbole - 1].val.chaine = strdup(_val); // Bebo - Possibilite de fuite car si on met juste = val et qu'on le libere...
         _lexData->nbSymboles += 1;
     }
 }
