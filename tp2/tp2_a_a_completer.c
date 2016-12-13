@@ -105,8 +105,7 @@ TLex * initLexData(char * _data)
 
 		/* SI CE N'EST PAS UN ESPACE */
 		if (isSep(_data[i]) == 0)
-		{
-			/* TRAITEMENT CHAINE */
+		{	/* TRAITEMENT CHAINE */
 			if (_data[i] == '"')
 			{
                 buffer[z] = '"';
@@ -126,7 +125,7 @@ TLex * initLexData(char * _data)
                 _lex_data->startPos = _data + i;
                 _lex_data->nbLignes = nbLignes;
                 addStringSymbolToLexData(_lex_data, buffer);
-			} /* TRAITEMENT NOMBRE */
+			}/* TRAITEMENT NOMBRE */
 			else if (_data[i] >= '0' && _data[i] <= '9')
             {
                 while ((_data[i] >= '0' && _data[i] <= '9' ) || _data[i] == '.')
@@ -148,7 +147,7 @@ TLex * initLexData(char * _data)
                     _lex_data->nbLignes = nbLignes;
                     addIntSymbolToLexData(_lex_data, atoi(buffer));
                 }
-            } /* TRAITEMENT CARACTERE SPECIAL */
+            }/* TRAITEMENT CARACTERE */
 			else
 			{
                 _lex_data->startPos = _data + i;
@@ -167,6 +166,9 @@ TLex * initLexData(char * _data)
 }
 
 
+
+
+
 /**
  * \fn void deleteLexData(TLex ** _lexData)
  * \brief fonction qui supprime de la memoire les donnees pour
@@ -175,8 +177,17 @@ TLex * initLexData(char * _data)
  * \param[in/out] _lexData donnees de l'analyseur lexical
  * \return neant
  */
-void deleteLexData(TLex ** _lexData) {
-/****** A ECRIRE *******/
+void deleteLexData(TLex ** _lexData)
+{
+	
+    /* if(&_lexData->tableSymboles.type == JSON_STRING)
+    {
+        free(_lexData->tableSymboles->val.chaine);
+    }
+
+    free(&(_lexData.data));
+    free(_lexData.startPos);
+    free(_lexData.tableSymboles); */ 
 }
 
 /**
@@ -238,8 +249,14 @@ void addRealSymbolToLexData(TLex * _lexData, const float _val)
  * \param[in/out] _lexData donnees de l'analyseur lexical
  * \param[in] _val chaine a ajouter
  */
-void addStringSymbolToLexData(TLex * _lexData, char * _val) {
-/****** A ECRIRE *******/
+void addStringSymbolToLexData(TLex * _lexData, char * _val)
+{
+	if (_lexData != NULL)
+    {
+        _lexData->tableSymboles[nbrSymbole - 1]type = JSON_STRING;
+        _lexData->tableSymboles[nbrSymbole - 1]val.chaine = strdup(_val); // Bebo - Possibilite de fuite car si on met juste = val et qu'on le libere...
+        _lexData->nbSymboles += 1;
+    }
 }
 
 /**
@@ -278,3 +295,4 @@ int main() {
 	free(test);
 	return 0;
 }
+
