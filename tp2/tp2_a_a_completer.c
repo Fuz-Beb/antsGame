@@ -140,7 +140,15 @@ TLex * initLexData(char * _data)
  * \return neant
  */
 void deleteLexData(TLex ** _lexData) {
-/****** A ECRIRE *******/
+    
+    if(&_lexData->tableSymboles.type == JSON_STRING)
+    {
+        free(_lexData->tableSymboles->val.chaine);
+    }
+    
+    free(&(_lexData.data));
+    free(_lexData.startPos); /**< position de depart pour la prochaine analyse */
+    free(_lexData.tableSymboles);
 }
 
 /**
