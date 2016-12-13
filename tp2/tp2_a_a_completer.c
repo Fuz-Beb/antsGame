@@ -61,8 +61,12 @@ typedef struct{
  * \param[in] _symb symbole a analyser
  * \return 1 (vrai) si _symb est un separateur, 0 (faux) sinon
  */
-int isSep(const char _symb) {
-/****** A ECRIRE *******/
+int isSep(const char _symb)
+{
+	if (_symb == ' ')
+		return 1;
+	else
+		return 0;
 }
 
 /**
@@ -73,8 +77,58 @@ int isSep(const char _symb) {
  * \param[in] _data chaine a analyser
  * \return pointeur sur la structure de donnees creee
  */
-TLex * initLexData(char * _data) {
-/****** A ECRIRE *******/
+TLex * initLexData(char * _data)
+{
+	TLex * lex_data = (TLex*) malloc (sizeof(TLex));
+	int i = 0, j = 0;
+	
+	if (lex_data == NULL)
+		exit -1;
+	
+	while (strlen(_data) != i)
+	{
+		lex_data = realloc(lex_data, sizeof(TLex) * j + 1);
+
+		if (lex_data == NULL)
+			exit -1;
+		
+		/* SI CE N'EST PAS UN ESPACE */
+		if (isSep(_data[i]) == 0)
+		{
+			if ((_data[i] < 'a' || _data[i] > 'z') && _data[i] != '"')
+			{
+				if (_data[i] >= '0' && _data[i] <= '9')
+				{
+					/* TRAITEMENT CHIFFRE TROUVE */
+					/* FAIRE UNE BOUCLE POUR FABRIQUER UN NOMBRE */
+					/* PENSER A INCREMENTER LE i ICI */
+				}
+				else
+				{
+					/* TRAITEMENT CARACTERE SPECIAL TROUVE */
+					/* L'AJOUTER TEL QUEL DANS LA STRUCTURE */
+				}	
+			}
+			else
+			{
+				/* TRAITEMENT CARACTERE ALPHABETIQUE */
+				/* FAIRE UNE BOUCLE POUR FABRIQUER LE MOT */
+				/* PENSER A INCREMENTER LE i ICI */
+			}
+			
+			/* ATTENTION AVEC DE i */
+			/* IL DOIT SUREMENT DISPARAITRE APRES AVOIR FAIT LE TRAITEMENT AVEC LES 				MOTS ET NOMBRES */
+			i++;
+		}
+		else
+		{
+			/* 	TRAITEMENT ESPACE TROUVE */
+			i++;
+		}
+		
+		/* VALEUR DE LA TAILLE DU TABLEAU DE STRUCTURE */
+		j++;
+	}
 }
 
 /**
@@ -110,8 +164,14 @@ void printLexData(TLex * _lexData) {
  * \param[in] _val valeur entiere e ajouter
  * \return neant
  */
-void addIntSymbolToLexData(TLex * _lexData, const int _val) {
-/****** A ECRIRE *******/
+void addIntSymbolToLexData(TLex * _lexData, const int _val)
+{
+	if (_lexData != NULL)
+	{
+		_lexData->tableSymboles->type = JSON_INT_NUMBER;
+		_lexData->tableSymboles->val.entier = _val;
+		_lexData->nbSymboles += 1;
+	}
 }
 
 /**
@@ -162,12 +222,12 @@ int main() {
 	printf("\n");
 
 	lex_data = initLexData(test);
-	i = lex(lex_data);
+	/*i = lex(lex_data);
 	while (i!=JSON_LEX_ERROR) {
 		printf("lex()=%d\n",i);
 		i = lex(lex_data);
 	}
-  printLexData(lex_data);
+  	printLexData(lex_data);*/
 	deleteLexData(&lex_data);
 	free(test);
 	return 0;
