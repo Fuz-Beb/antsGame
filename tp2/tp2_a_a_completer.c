@@ -59,8 +59,6 @@ typedef struct{
 void addIntSymbolToLexData(TLex * _lexData, const int _val);
 void addRealSymbolToLexData(TLex * _lexData, const float _val);
 void addStringSymbolToLexData(TLex * _lexData, char * _val);
-int insertStringLexData(TLex * _lex_data, char * _data, char * buffer, int i, int nbLignes);
-int insertNombreLexData(TLex * _lex_data, char * _data, char * buffer, int i, int nbLignes);
 
 /**
  * \fn int isSep(char _symb)
@@ -89,108 +87,9 @@ TLex * initLexData(char * _data)
 {
 	TLex * _lex_data = (TLex*) malloc (sizeof(TLex));
 	_lex_data->tableSymboles = (TSymbole*) malloc (sizeof(TSymbole));
-    char buffer[32];
-
-	memset(buffer, '\0', 32);
-	int i = 0, nbLignes = 0;
-
-	if (_lex_data == NULL)
-		exit(0);
-
-	while (strlen(_data) != i)
-	{
-		_lex_data->tableSymboles = realloc(_lex_data->tableSymboles, sizeof(TSymbole) * ((size_t)_lex_data->nbSymboles + 1));
-
-		if (_lex_data == NULL)
-			exit(0);
-
-        if (_data[i] == '\n')
-            nbLignes++;
-
-		/* SI CE N'EST PAS UN ESPACE */
-		if (isSep(_data[i]) == 0)
-		{	/* TRAITEMENT CHAINE */
-            if (_data[i] == '"')
-                i = insertStringLexData(_lex_data, _data, buffer, i, nbLignes);
-
-			/* TRAITEMENT NOMBRE */
-			else if (_data[i] >= '0' && _data[i] <= '9')
-            {
-                i = insertNombreLexData(_lex_data, _data, buffer, i, nbLignes);
-            }/* TRAITEMENT CARACTERE */
-			else
-			{
-                _lex_data->startPos = _data + i;
-                _lex_data->nbLignes = nbLignes;
-                addStringSymbolToLexData(_lex_data, buffer);
-                i++;
-            }
-		}
-		else
-			i++;
-
-		memset(buffer, '\0', 32);
-	}
+ 
 	return _lex_data;
 }
-
-/* Mettre des commentaires Doxygen */
-int insertStringLexData(TLex * _lex_data, char * _data, char * buffer, int i, int nbLignes)
-{
-    int z = 0;
-
-    buffer[z] = '"';
-    i++;
-    z++;
-
-    while (_data[i] != '"')
-    {
-        buffer[z] = _data[i];
-        z++;
-        i++;
-    }
-
-    buffer[z] = '"';
-    i++;
-
-    _lex_data->startPos = _data + i;
-    _lex_data->nbLignes = nbLignes;
-    addStringSymbolToLexData(_lex_data, buffer);
-
-    return i;
-}
-
-/* Mettre des commentaires Doxygen */
-int insertNombreLexData(TLex * _lex_data, char * _data, char * buffer, int i, int nbLignes)
-{
-    int z = 0;
-
-    while ((_data[i] >= '0' && _data[i] <= '9' ) || _data[i] == '.')
-    {
-        buffer[z] = _data[i];
-        z++;
-        i++;
-    }
-
-    if (strchr(buffer, '.'))
-    {
-        _lex_data->startPos = _data + i;
-        _lex_data->nbLignes = nbLignes;
-        addRealSymbolToLexData(_lex_data, atof(buffer));
-    }
-    else
-    {
-        _lex_data->startPos = _data + i;
-        _lex_data->nbLignes = nbLignes;
-        addIntSymbolToLexData(_lex_data, atoi(buffer));
-    }
-    return i;
-}
-
-
-
-
-
 
 /**
  * \fn void deleteLexData(TLex ** _lexData)
@@ -249,8 +148,36 @@ void deleteLexData(TLex ** _lexData)
  * \param[in] _lexData donn�es de l'analyseur lexical
  * \return neant
  */
-void printLexData(TLex * _lexData) {
-/****** A ECRIRE *******/
+void printLexData(TLex * _lexData)
+{
+	if (_lexData != NULL)
+	{
+		int nbSymboles = _lexData->nbSymboles, i = 0;
+		printf("Table des symboles : \n -----------------------\n\n");
+
+		while (nbSymboles != 0)
+		{
+			if (_lexData->tableSymboles[i].type == JSON_STRING)
+				printf("STRING : %s", _lexData->tableSymboles[i].chaine);
+			else if (_lexData->tableSymboles[i].type == JSON_INT_NUMBER)
+				printf("INT : %d", _lexData->tableSymboles[i].entier);
+			else if (_lexData->tableSymboles[i].type == JSON_REAL_NUMBER)
+				printf("INT : %d", _lexData->tableSymboles[i].reel);
+			else
+			{
+				printf("ERREUR DANS LA LECTURE DE LA TABLE DES SYMBOLES");
+				exit(0);
+			}
+				
+			nbSymboles--;
+			i++;
+		}
+	}
+	else
+	{
+		printf("ERREUR DANS LA LECTURE DES DONNEES (Tlex = NULL)");
+		exit(0);
+	}
 }
 
 
@@ -348,7 +275,7 @@ int lex(TLex * _lexData)
 			if (_lexData->startPos[1] == 'r' && _lexData->startPos[2] == 'u' && _lexData->startPos[3] == 'e')
 			{
 				strncpy(buffer, _lexData->startPos, 4);
-				addStringSymbolToLexData(lexData, buffer);
+				addStringSymbolToLexData(_lexData, buffer);
 				strncpy(_lexData->startPos, _lexData->startPos + 4, strlen(_lexData->startPos) - 4);
 				return JSON_TRUE;
 			}
@@ -356,7 +283,7 @@ int lex(TLex * _lexData)
 			if (_lexData->startPos[1] == 'a' && _lexData->startPos[2] == 'l' && _lexData->startPos[3] == 's' && _lexData->startPos[4] == 'e')
 			{
 				strncpy(buffer, _lexData->startPos, 5);
-				addStringSymbolToLexData(lexData, buffer);
+				addStringSymbolToLexData(_lexData, buffer);
 				strncpy(_lexData->startPos, _lexData->startPos + 5, strlen(_lexData->startPos) - 5);
 				return JSON_FALSE;
 			}
@@ -364,7 +291,7 @@ int lex(TLex * _lexData)
 			if (_lexData->startPos[1] == 'u' && _lexData->startPos[2] == 'l' && _lexData->startPos[3] == 'l')
 			{
 				strncpy(buffer, _lexData->startPos, 4);
-				addStringSymbolToLexData(lexData, buffer);
+				addStringSymbolToLexData(_lexData, buffer);
 				strncpy(_lexData->startPos, _lexData->startPos + 4, strlen(_lexData->startPos) - 4);
 				return JSON_NULL;
 			}
@@ -388,18 +315,84 @@ int lex(TLex * _lexData)
 			return JSON_COMMA;
 		case '"' :
 			int i = 1;
-    		while (_lexData->startPos[i] != '"' && /* METTRE STRING LENTH */)
+			int size = strlen(_lexData->startPos);
+    		while (_lexData->startPos[i] != '"' &&  i <= size)
     		{
         		i++;
     		}
-
-    		/* A REVOIR */
-    		strncpy(_lexData->startPos, _lexData->startPos + i, strlen(_lexData->startPos) - i);
-		    addStringSymbolToLexData(_lex_data, buffer);			
+    		strncpy(buffer, _lexData->startPos, i + 1);
+    		strncpy(_lexData->startPos, _lexData->startPos + (i+1), strlen(_lexData->startPos) - (i-1));
+		    addStringSymbolToLexData(_lex_data, buffer);
+		    return JSON_STRING;
 		default:
-			return JSON_LEX_ERROR;
+			int i = 1;
+
+			if ((int)_lexData->startPos[0] >= '0' && (int)_lexData->startPos[0] <= '9')
+			{
+				if ((int)_lexData->startPos[0] == '0' && _lexData->startPos[1] != '.')
+				{
+					addIntSymbolToLexData(_lexData, 0);
+					strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+					return JSON_INT_NUMBER;
+				}
+				else if ((int)_lexData->startPos[0] >= '1' && (int)_lexData->startPos[0] <= '9')
+				{
+					while ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9')
+        					i++;
+
+        			if ((int)_lexData->startPos[i] == '.')
+        				i++;
+        			else
+        			{
+        				strncpy(buffer, _lexData->startPos, i);
+        				addIntSymbolToLexData(_lexData, atoi(buffer));
+        				strncpy(_lexData->startPos, _lexData->startPos + i, strlen(_lexData->startPos) - i);
+						return JSON_INT_NUMBER;
+        			}
+				}
+				else if ((int)_lexData->startPos[0] == '0' && _lexData->startPos[1] == '.')
+					i++;
+
+				if ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9')
+				{
+					while ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9')
+        				i++;
+
+        			if (_lexData->startPos[i] == 'e' || _lexData->startPos[i] == 'E')
+    				{
+    					i++;
+
+    					if (_lexData->startPos[i] == '+' || _lexData->startPos[i] == '-' || ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9' ))
+    					{
+    						i++;
+
+    						while ((int)_lexData->startPos[i] >= 0 && (int)_lexData->startPos[i] <= '9')
+        						i++;
+
+        					strncpy(buffer, _lexData->startPos, i);
+        					addRealSymbolToLexData(_lexData, atof(buffer));
+        					strncpy(_lexData->startPos, _lexData->startPos + i, strlen(_lexData->startPos) - i);
+        					return JSON_REAL_NUMBER;
+    					}
+    					else
+    						return JSON_LEX_ERROR;
+    				}
+    				else
+    				{
+    					strncpy(buffer, _lexData->startPos, i);
+    					addRealSymbolToLexData(_lexData, atof(buffer));
+    					strncpy(_lexData->startPos, _lexData->startPos + i, strlen(_lexData->startPos) - i);
+						return JSON_REAL_NUMBER;
+    				}
+				}
+				else
+					return JSON_LEX_ERROR;
+			}
+			else
+				return JSON_LEX_ERROR;
 	}
 }
+
 
 /**
  * \fn int main()
