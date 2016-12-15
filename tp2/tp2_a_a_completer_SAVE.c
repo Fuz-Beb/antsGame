@@ -266,11 +266,6 @@ void addIntSymbolToLexData(TLex * _lexData, const int _val)
 {
 	if (_lexData != NULL)
 	{
-		_lex_data->tableSymboles = realloc(_lex_data->tableSymboles, sizeof(TSymbole) * ((size_t)_lex_data->nbSymboles + 1));
-
-		if (_lex_data == NULL)
-			exit(0);
-
 	    _lexData->nbSymboles += 1;
 	    int nbrSymbole = _lexData->nbSymboles;
 		_lexData->tableSymboles[nbrSymbole - 1].type = JSON_INT_NUMBER;
@@ -289,11 +284,6 @@ void addRealSymbolToLexData(TLex * _lexData, const float _val)
 {
 	if (_lexData != NULL)
 	{
-		_lex_data->tableSymboles = realloc(_lex_data->tableSymboles, sizeof(TSymbole) * ((size_t)_lex_data->nbSymboles + 1));
-
-		if (_lex_data == NULL)
-			exit(0);
-
 	    _lexData->nbSymboles += 1;
 	    int nbrSymbole = _lexData->nbSymboles;
 		_lexData->tableSymboles[nbrSymbole - 1].type = JSON_REAL_NUMBER;
@@ -312,11 +302,6 @@ void addStringSymbolToLexData(TLex * _lexData, char * _val)
 {
     if (_lexData != NULL)
     {
-    	_lex_data->tableSymboles = realloc(_lex_data->tableSymboles, sizeof(TSymbole) * ((size_t)_lex_data->nbSymboles + 1));
-
-		if (_lex_data == NULL)
-			exit(0);
-
         _lexData->nbSymboles += 1;
         int nbrSymbole = _lexData->nbSymboles;
         _lexData->tableSymboles[nbrSymbole - 1].type = JSON_STRING;
@@ -331,75 +316,10 @@ void addStringSymbolToLexData(TLex * _lexData, char * _val)
  * \param[in/out] _lexData donn�es de suivi de l'analyse lexicale
  * \return code d'identification de l'entite lexicale trouvee
 */
-int lex(TLex * _lexData)
-{
-	char buffer[64];
-	memset(buffer, '\0', 32);
-
-	while (_lexData->startPos[0] == '\n' || isSep(_lexData->startPos[0]))
-	{
-		_lexData->nbLignes += 1;
-		strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
-	}
-
-	switch (_lexData->startPos[0]) {
-
-		case 't' :
-			if (_lexData->startPos[1] == 'r' && _lexData->startPos[2] == 'u' && _lexData->startPos[3] == 'e')
-			{
-				strncpy(buffer, _lexData->startPos, 4);
-				addStringSymbolToLexData(lexData, buffer);
-				strncpy(_lexData->startPos, _lexData->startPos + 4, strlen(_lexData->startPos) - 4);
-				return JSON_TRUE;
-			}
-		case 'f' :
-			if (_lexData->startPos[1] == 'a' && _lexData->startPos[2] == 'l' && _lexData->startPos[3] == 's' && _lexData->startPos[4] == 'e')
-			{
-				strncpy(buffer, _lexData->startPos, 5);
-				addStringSymbolToLexData(lexData, buffer);
-				strncpy(_lexData->startPos, _lexData->startPos + 5, strlen(_lexData->startPos) - 5);
-				return JSON_FALSE;
-			}
-		case 'n' :
-			if (_lexData->startPos[1] == 'u' && _lexData->startPos[2] == 'l' && _lexData->startPos[3] == 'l')
-			{
-				strncpy(buffer, _lexData->startPos, 4);
-				addStringSymbolToLexData(lexData, buffer);
-				strncpy(_lexData->startPos, _lexData->startPos + 4, strlen(_lexData->startPos) - 4);
-				return JSON_NULL;
-			}
-		case '{' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
-			return JSON_LCB;
-		case '}' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
-			return JSON_RCB;
-		case '[' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
-			return JSON_LB;
-		case ']' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
-			return JSON_RB;
-		case ':' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
-			return JSON_COLON;
-		case ',' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
-			return JSON_COMMA;
-		case '"' :
-			int i = 1;
-    		while (_lexData->startPos[i] != '"' && /* METTRE STRING LENTH */)
-    		{
-        		i++;
-    		}
-
-    		/* A REVOIR */
-    		strncpy(_lexData->startPos, _lexData->startPos + i, strlen(_lexData->startPos) - i);
-		    addStringSymbolToLexData(_lex_data, buffer);			
-		default:
-			return JSON_LEX_ERROR;
-	}
+int lex(TLex * _lexData) {
+/****** A ECRIRE *******/
 }
+
 
 /**
  * \fn int main()
