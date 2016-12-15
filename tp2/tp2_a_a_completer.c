@@ -102,7 +102,9 @@ TLex * initLexData(char * _data)
 	}
 
 	_lexData->data = strndup(_data, strlen(_data));
-	_lexData->startPos = strndup(_data, strlen(_data));
+
+	/* PROBLEME ICI !! Je fais des +1 sur les pointeurs. Du coup, le free() ne fonctionne pas à la fin
+    strncpy(_lexData->startPos, _data, strlen(_data));*/
 	_lexData->nbLignes = 0;
 	_lexData->nbSymboles = 0;
 
@@ -119,41 +121,25 @@ TLex * initLexData(char * _data)
  */
 void deleteLexData(TLex ** _lexData)
 {
-	int i = 0, j = 0;
+	int nbSymboles = _lexData[0]->nbSymboles, i = 0;
 
-	while(_lexData[i+1] != NULL)
-	{
-		while(_lexData[i]->tableSymboles[j].val.chaine != NULL && _lexData[i]->tableSymboles[j].type == JSON_STRING)
-		{
-			free(_lexData[i]->tableSymboles[j].val.chaine);
-			j++;
-		}
+	while (nbSymboles != 0)
+    {
+        if(_lexData[0]->tableSymboles[i].type == JSON_STRING)
+        {
+            while(_lexData[0]->tableSymboles[i].val.chaine != NULL && _lexData[0]->tableSymboles[i].type == JSON_STRING)
+            {
+                free(_lexData[0]->tableSymboles[i].val.chaine);
+                i++;
+                nbSymboles--;
+            }
+        }
+        nbSymboles--;
+    }
 
-    free(_lexData[i]->data);
-    free(_lexData[i]->startPos);
-    free(_lexData[i]->tableSymboles);
-		free(_lexData[i]);
-
-		i++;
-		j = 0;
-	}
-
-	if(_lexData[i] != NULL)
-	{
-		while(_lexData[i]->tableSymboles[j].val.chaine != NULL && _lexData[i]->tableSymboles[j].type == JSON_STRING)
-		{
-			free(_lexData[i]->tableSymboles[j].val.chaine);
-			j++;
-		}
-
-		free(_lexData[i]->data);
-		free(_lexData[i]->startPos);
-		free(_lexData[i]->tableSymboles);
-		free(_lexData[i]);
-
-		i++;
-		j = 0;
-	}
+    free(_lexData[0]->data);
+    free(_lexData[0]->tableSymboles);
+    free(_lexData[0]);
 }
 
 /**
@@ -167,33 +153,33 @@ void deleteLexData(TLex ** _lexData)
 void printLexData(TLex * _lexData)
 {
 	if (_lexData != NULL)
-	{
-		int nbSymboles = _lexData->nbSymboles, i = 0;
-		printf("Table des symboles : \n -----------------------\n\n");
+    {
+        int nbSymboles = _lexData->nbSymboles, i = 0;
+        printf("Table des symboles : \n -----------------------\n\n");
 
-		while (nbSymboles != 0)
-		{
-			if (_lexData->tableSymboles[i].type == JSON_STRING)
-				printf("STRING : %s", _lexData->tableSymboles[i].val.chaine);
-			else if (_lexData->tableSymboles[i].type == JSON_INT_NUMBER)
-				printf("INT : %d", _lexData->tableSymboles[i].val.entier);
-			else if (_lexData->tableSymboles[i].type == JSON_REAL_NUMBER)
-				printf("INT : %f", _lexData->tableSymboles[i].val.reel);
-			else
-			{
-				printf("ERREUR DANS LA LECTURE DE LA TABLE DES SYMBOLES");
-				exit(EXIT_FAILURE);
-			}
-				
-			nbSymboles--;
-			i++;
-		}
-	}
-	else
-	{
-		printf("ERREUR DANS LA LECTURE DES DONNEES (Tlex = NULL)");
-		exit(EXIT_FAILURE);
-	}
+        while (nbSymboles != 0)
+        {
+            if (_lexData->tableSymboles[i].type == JSON_STRING)
+                printf("STRING : %s\n", _lexData->tableSymboles[i].val.chaine);
+            else if (_lexData->tableSymboles[i].type == JSON_INT_NUMBER)
+                printf("INT : %d\n", _lexData->tableSymboles[i].val.entier);
+            else if (_lexData->tableSymboles[i].type == JSON_REAL_NUMBER)
+                printf("REEL : %f\n", _lexData->tableSymboles[i].val.reel);
+            else
+            {
+                printf("ERREUR DANS LA LECTURE DE LA TABLE DES SYMBOLES");
+                exit(EXIT_FAILURE);
+            }
+
+            nbSymboles--;
+            i++;
+        }
+    }
+    else
+    {
+        printf("ERREUR DANS LA LECTURE DES DONNEES (Tlex = NULL)");
+        exit(EXIT_FAILURE);
+    }
 }
 
 
@@ -277,21 +263,24 @@ void addStringSymbolToLexData(TLex * _lexData, char * _val)
 int lex(TLex * _lexData)
 {
 	int i = 1;
-	int size = strlen(_lexData->startPos);
-	char buffer[64];
-	memset(buffer, '\0', 32);
+	int size = 0;
+	char buffer[2048];
+	char buffer1[2048];
+	memset(buffer, '\0', 2048);
+	memset(buffer1, '\0', 2048);
+
+	strncpy(buffer1, _lexData->startPos, strlen(_lexData->startPos) + 1);
 
 	while (_lexData->startPos[0] == '\n')
 	{
 		_lexData->nbLignes += 1;
-		strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+		_lexData->startPos = _lexData->startPos + 1;
 	}
 
 	while (isSep(_lexData->startPos[0]))
-	{
-		strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
-	}
+        _lexData->startPos = _lexData->startPos + 1;
 
+    size = strlen(_lexData->startPos);
 
 	switch (_lexData->startPos[0]) {
 
@@ -300,7 +289,7 @@ int lex(TLex * _lexData)
 			{
 				strncpy(buffer, _lexData->startPos, 4);
 				addStringSymbolToLexData(_lexData, buffer);
-				strncpy(_lexData->startPos, _lexData->startPos + 4, strlen(_lexData->startPos) - 4);
+				_lexData->startPos = _lexData->startPos + 4;
 				return JSON_TRUE;
 			}
 		case 'f' :
@@ -308,7 +297,7 @@ int lex(TLex * _lexData)
 			{
 				strncpy(buffer, _lexData->startPos, 5);
 				addStringSymbolToLexData(_lexData, buffer);
-				strncpy(_lexData->startPos, _lexData->startPos + 5, strlen(_lexData->startPos) - 5);
+				_lexData->startPos = _lexData->startPos + 5;
 				return JSON_FALSE;
 			}
 		case 'n' :
@@ -316,34 +305,33 @@ int lex(TLex * _lexData)
 			{
 				strncpy(buffer, _lexData->startPos, 4);
 				addStringSymbolToLexData(_lexData, buffer);
-				strncpy(_lexData->startPos, _lexData->startPos + 4, strlen(_lexData->startPos) - 4);
+				_lexData->startPos = _lexData->startPos + 3;
 				return JSON_NULL;
 			}
 		case '{' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+			_lexData->startPos = _lexData->startPos + 1;
 			return JSON_LCB;
 		case '}' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+			_lexData->startPos = _lexData->startPos + 1;
 			return JSON_RCB;
 		case '[' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+			_lexData->startPos = _lexData->startPos + 1;
 			return JSON_LB;
 		case ']' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+			_lexData->startPos = _lexData->startPos + 1;
 			return JSON_RB;
 		case ':' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+			_lexData->startPos = _lexData->startPos + 1;
 			return JSON_COLON;
 		case ',' :
-			strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+			_lexData->startPos = _lexData->startPos + 1;
 			return JSON_COMMA;
 		case '"' :
     		while (_lexData->startPos[i] != '"' &&  i <= size)
-    		{
         		i++;
-    		}
+
     		strncpy(buffer, _lexData->startPos, i + 1);
-    		strncpy(_lexData->startPos, _lexData->startPos + (i+1), strlen(_lexData->startPos) - (i-1));
+    		_lexData->startPos = _lexData->startPos + (i+1);
 		    addStringSymbolToLexData(_lexData, buffer);
 		    return JSON_STRING;
 		default:
@@ -352,7 +340,7 @@ int lex(TLex * _lexData)
 				if ((int)_lexData->startPos[0] == '0' && _lexData->startPos[1] != '.')
 				{
 					addIntSymbolToLexData(_lexData, 0);
-					strncpy(_lexData->startPos, _lexData->startPos + 1, strlen(_lexData->startPos) - 1);
+					_lexData->startPos = _lexData->startPos + 1;
 					return JSON_INT_NUMBER;
 				}
 				else if ((int)_lexData->startPos[0] >= '1' && (int)_lexData->startPos[0] <= '9')
@@ -366,7 +354,7 @@ int lex(TLex * _lexData)
         			{
         				strncpy(buffer, _lexData->startPos, i);
         				addIntSymbolToLexData(_lexData, atoi(buffer));
-        				strncpy(_lexData->startPos, _lexData->startPos + i, strlen(_lexData->startPos) - i);
+        				_lexData->startPos = _lexData->startPos + i;
 						return JSON_INT_NUMBER;
         			}
 				}
@@ -391,7 +379,7 @@ int lex(TLex * _lexData)
 
         					strncpy(buffer, _lexData->startPos, i);
         					addRealSymbolToLexData(_lexData, atof(buffer));
-        					strncpy(_lexData->startPos, _lexData->startPos + i, strlen(_lexData->startPos) - i);
+        					_lexData->startPos = _lexData->startPos + i;
         					return JSON_REAL_NUMBER;
     					}
     					else
@@ -401,7 +389,7 @@ int lex(TLex * _lexData)
     				{
     					strncpy(buffer, _lexData->startPos, i);
     					addRealSymbolToLexData(_lexData, atof(buffer));
-    					strncpy(_lexData->startPos, _lexData->startPos + i, strlen(_lexData->startPos) - i);
+    					_lexData->startPos = _lexData->startPos + i;
 						return JSON_REAL_NUMBER;
     				}
 				}
