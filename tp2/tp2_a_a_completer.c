@@ -130,14 +130,15 @@ void deleteLexData(TLex ** _lexData)
             {
                 free(_lexData[0]->tableSymboles[i].val.chaine);
                 i++;
-                nbSymboles--;
             }
         }
         nbSymboles--;
+        i++;
     }
 
     free(_lexData[0]->data);
     free(_lexData[0]->tableSymboles);
+    free(_lexData[0]->startPos);
     free(_lexData[0]);
 }
 
@@ -442,7 +443,12 @@ int main() {
 	int i;
 	TLex * lex_data;
 
+<<<<<<< HEAD
 	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
+=======
+	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
+	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"\"and\"\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
+>>>>>>> 671805c43008eccecc7dc2d312a989da9d160f05
 
 	printf("%s",test);
 	printf("\n");
@@ -458,5 +464,3 @@ int main() {
 	free(test);
 	return 0;
 }
-
-
