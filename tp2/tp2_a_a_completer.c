@@ -261,14 +261,11 @@ void addStringSymbolToLexData(TLex * _lexData, char * _val)
 */
 int lex(TLex * _lexData)
 {
-	int i = 1;
-	int size = 0;
+	int i = 1, size = 0, temp = 0;
 	char buffer[2048];
 	char buffer1[2048];
 	memset(buffer, '\0', 2048);
 	memset(buffer1, '\0', 2048);
-
-	strncpy(buffer1, _lexData->startPos, strlen(_lexData->startPos) + 1);
 
 	while (_lexData->startPos[0] == '\n')
 	{
@@ -326,13 +323,29 @@ int lex(TLex * _lexData)
 			_lexData->startPos = subString(_lexData, 1);
 			return JSON_COMMA;
 		case '"' :
-    		while (_lexData->startPos[i] != '"' &&  i <= size)
+			
+			/* NE FONCTIONNE PAS */
+
+			/*if (_lexData->startPos[1] = '"')
+				return JSON_STRING;
+
+			
+    		while ((int)_lexData->startPos[i] >=  'A' && (int)_lexData->startPos[i] <= 'Z' &&  i <= size)
+        	{
+        		if ()
         		i++;
+        	}
+
+
+			while(_lexData->startPos[i] != '"' && _lexData->startPos[i - 1] != '\\' &&  i <= size)
+				i++;
+
+
 
     		strncpy(buffer, _lexData->startPos, i + 1);
     		_lexData->startPos = subString(_lexData, i + 1);
 		    addStringSymbolToLexData(_lexData, buffer);
-		    return JSON_STRING;
+		    return JSON_STRING;*/
 		default:
 			if ((int)_lexData->startPos[0] >= '0' && (int)_lexData->startPos[0] <= '9')
 			{
@@ -429,9 +442,8 @@ int main() {
 	int i;
 	TLex * lex_data;
 
-	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
-	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"\"and\"\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
-	
+	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
+
 	printf("%s",test);
 	printf("\n");
 
