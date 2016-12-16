@@ -59,6 +59,7 @@ typedef struct{
 void addIntSymbolToLexData(TLex * _lexData, const int _val);
 void addRealSymbolToLexData(TLex * _lexData, const float _val);
 void addStringSymbolToLexData(TLex * _lexData, char * _val);
+char * subString(TLex * lex_data, int nbCaracteres);
 
 /**
  * \fn int isSep(char _symb)
@@ -102,9 +103,7 @@ TLex * initLexData(char * _data)
 	}
 
 	_lexData->data = strndup(_data, strlen(_data));
-
-	/* PROBLEME ICI !! Je fais des +1 sur les pointeurs. Du coup, le free() ne fonctionne pas à la fin
-    strncpy(_lexData->startPos, _data, strlen(_data));*/
+    _lexData->startPos = strndup(_data, strlen(_data));
 	_lexData->nbLignes = 0;
 	_lexData->nbSymboles = 0;
 
@@ -274,11 +273,11 @@ int lex(TLex * _lexData)
 	while (_lexData->startPos[0] == '\n')
 	{
 		_lexData->nbLignes += 1;
-		_lexData->startPos = _lexData->startPos + 1;
+		_lexData->startPos = subString(_lexData, 1);
 	}
 
 	while (isSep(_lexData->startPos[0]))
-        _lexData->startPos = _lexData->startPos + 1;
+        _lexData->startPos = subString(_lexData, 1);
 
     size = strlen(_lexData->startPos);
 
@@ -289,7 +288,7 @@ int lex(TLex * _lexData)
 			{
 				strncpy(buffer, _lexData->startPos, 4);
 				addStringSymbolToLexData(_lexData, buffer);
-				_lexData->startPos = _lexData->startPos + 4;
+				_lexData->startPos = subString(_lexData, 4);
 				return JSON_TRUE;
 			}
 		case 'f' :
@@ -297,7 +296,7 @@ int lex(TLex * _lexData)
 			{
 				strncpy(buffer, _lexData->startPos, 5);
 				addStringSymbolToLexData(_lexData, buffer);
-				_lexData->startPos = _lexData->startPos + 5;
+				_lexData->startPos = subString(_lexData, 5);
 				return JSON_FALSE;
 			}
 		case 'n' :
@@ -305,33 +304,33 @@ int lex(TLex * _lexData)
 			{
 				strncpy(buffer, _lexData->startPos, 4);
 				addStringSymbolToLexData(_lexData, buffer);
-				_lexData->startPos = _lexData->startPos + 3;
+				_lexData->startPos = subString(_lexData, 3);
 				return JSON_NULL;
 			}
 		case '{' :
-			_lexData->startPos = _lexData->startPos + 1;
+			_lexData->startPos = subString(_lexData, 1);
 			return JSON_LCB;
 		case '}' :
-			_lexData->startPos = _lexData->startPos + 1;
+			_lexData->startPos = subString(_lexData, 1);
 			return JSON_RCB;
 		case '[' :
-			_lexData->startPos = _lexData->startPos + 1;
+			_lexData->startPos = subString(_lexData, 1);
 			return JSON_LB;
 		case ']' :
-			_lexData->startPos = _lexData->startPos + 1;
+			_lexData->startPos = subString(_lexData, 1);
 			return JSON_RB;
 		case ':' :
-			_lexData->startPos = _lexData->startPos + 1;
+			_lexData->startPos = subString(_lexData, 1);
 			return JSON_COLON;
 		case ',' :
-			_lexData->startPos = _lexData->startPos + 1;
+			_lexData->startPos = subString(_lexData, 1);
 			return JSON_COMMA;
 		case '"' :
     		while (_lexData->startPos[i] != '"' &&  i <= size)
         		i++;
 
     		strncpy(buffer, _lexData->startPos, i + 1);
-    		_lexData->startPos = _lexData->startPos + (i+1);
+    		_lexData->startPos = subString(_lexData, i + 1);
 		    addStringSymbolToLexData(_lexData, buffer);
 		    return JSON_STRING;
 		default:
@@ -340,7 +339,7 @@ int lex(TLex * _lexData)
 				if ((int)_lexData->startPos[0] == '0' && _lexData->startPos[1] != '.')
 				{
 					addIntSymbolToLexData(_lexData, 0);
-					_lexData->startPos = _lexData->startPos + 1;
+					_lexData->startPos = subString(_lexData, 1);
 					return JSON_INT_NUMBER;
 				}
 				else if ((int)_lexData->startPos[0] >= '1' && (int)_lexData->startPos[0] <= '9')
@@ -354,7 +353,7 @@ int lex(TLex * _lexData)
         			{
         				strncpy(buffer, _lexData->startPos, i);
         				addIntSymbolToLexData(_lexData, atoi(buffer));
-        				_lexData->startPos = _lexData->startPos + i;
+        				_lexData->startPos = subString(_lexData, i);
 						return JSON_INT_NUMBER;
         			}
 				}
@@ -379,7 +378,7 @@ int lex(TLex * _lexData)
 
         					strncpy(buffer, _lexData->startPos, i);
         					addRealSymbolToLexData(_lexData, atof(buffer));
-        					_lexData->startPos = _lexData->startPos + i;
+        					_lexData->startPos = subString(_lexData, i);
         					return JSON_REAL_NUMBER;
     					}
     					else
@@ -389,7 +388,7 @@ int lex(TLex * _lexData)
     				{
     					strncpy(buffer, _lexData->startPos, i);
     					addRealSymbolToLexData(_lexData, atof(buffer));
-    					_lexData->startPos = _lexData->startPos + i;
+    					_lexData->startPos = subString(_lexData, i);
 						return JSON_REAL_NUMBER;
     				}
 				}
@@ -403,6 +402,25 @@ int lex(TLex * _lexData)
 
 
 /**
+ * \fn TLex * subString(Tlex * lex_data)
+ * \brief fonction qui rogne une chaine de caractères
+ *
+ * \param[in/out] lex_data données de suivi de l'analyse lexicale
+  * \param[in/out] nbCaracteres le nombre de caractères à supprimer
+ * \return la nouvelle chaine de caractères
+*/
+char * subString(TLex * lex_data, int nbCaracteres)
+{
+	char buffer[2048];
+	memset(buffer, '\0', 2048);
+	strncpy(buffer, lex_data->startPos + nbCaracteres, strlen(lex_data->startPos) - nbCaracteres);
+	free(lex_data->startPos);
+	lex_data->startPos = strndup(buffer, strlen(buffer) + 1);
+	return lex_data->startPos;
+}
+
+
+/**
  * \fn int main()
  * \brief fonction principale
  */
@@ -411,7 +429,9 @@ int main() {
 	int i;
 	TLex * lex_data;
 
-	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
+	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
+	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"\"and\"\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
+	
 	printf("%s",test);
 	printf("\n");
 
@@ -426,3 +446,5 @@ int main() {
 	free(test);
 	return 0;
 }
+
+
