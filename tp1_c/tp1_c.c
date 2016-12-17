@@ -41,7 +41,7 @@ int main (const int _argc, const char * _argv[]) {
 
     /* affichage des nouveaux parametres */
     printf("Valeurs des parametres :\n");
-    PrintParam(tab_param,result_arg);
+    PrintParam(tab_param,nb_param);
 
     
     return 0;

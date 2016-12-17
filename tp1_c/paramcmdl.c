@@ -72,17 +72,17 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
 */
 void PrintParam(TParamDef * _tabParam, const int _nbParam) {
 
-	int i = 0;
+	int indiceTab = 0;
 
-	while (i != _nbParam)
+	while (indiceTab != _nbParam)
 	{
-		if(_tabParam[i].type == PTentier)
-			printf("-%c %s (%s) [%d] \n", _tabParam[i].lettre, _tabParam[i].nom, ParamTypeChaine[0], _tabParam[i].valeur.entier);
-		else if (_tabParam[i].type == PTreel)
-			printf("-%c %s (%s) [%f] \n", _tabParam[i].lettre, _tabParam[i].nom, ParamTypeChaine[1], _tabParam[i].valeur.reel);
-		else
-			printf("-%c %s (%s) [%s] \n", _tabParam[i].lettre, _tabParam[i].nom, ParamTypeChaine[2], _tabParam[i].valeur.chaine);
-		i++;
+		if(_tabParam[indiceTab].type == PTentier)
+			printf("-%c %s (%s) [%d] \n", _tabParam[indiceTab].lettre, _tabParam[indiceTab].nom, ParamTypeChaine[0], _tabParam[indiceTab].valeur.entier);
+		else if (_tabParam[indiceTab].type == PTreel)
+			printf("-%c %s (%s) [%f] \n", _tabParam[indiceTab].lettre, _tabParam[indiceTab].nom, ParamTypeChaine[1], _tabParam[indiceTab].valeur.reel);
+		else if (_tabParam[indiceTab].type == PTchaine)
+			printf("-%c %s (%s) [%s] \n", _tabParam[indiceTab].lettre, _tabParam[indiceTab].nom, ParamTypeChaine[2], _tabParam[indiceTab].valeur.chaine);
+		indiceTab++;
 	}
 }
 
@@ -125,15 +125,16 @@ int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const in
 		indiceTab = 0;
 	}
 
+
 	returnValue = countNbParam;
 
-	while (_nbParam != countNbParam)
+	/*while (_nbParam != countNbParam)
 	{
 		if(_tabParam[countNbParam].type == PTchaine)
 			free(_tabParam[countNbParam].valeur.chaine);
 
 		countNbParam++;
-	}
+	}*/
 
 	return returnValue;
 }
