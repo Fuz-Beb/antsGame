@@ -1,5 +1,5 @@
-prog:paramcmdl.o tp1_c.o
-	gcc -o prog tp1_c.o paramcmdl.o 
+tp1_b:paramcmdl.o tp1_c.o
+	gcc -o tp1_b tp1_c.o paramcmdl.o 
 
 paramcmdl.o:paramcmdl.c
 	gcc -o paramcmdl.o -c paramcmdl.c

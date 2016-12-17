@@ -30,11 +30,12 @@ char * ParamTypeChaine[] = {"entier","reel","chaine"};
 char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
 
 	char * strResult = NULL;
-    
+	char buffer[20];
+
 	/* Traitement selon le type à l'index _index */
     if(_tabParam[_index].type == PTentier)
     {
-    	strResult = (char*) malloc ((sizeof(char) * sprintf(NULL, "%d", _tabParam[_index].valeur.entier)) + 1);
+    	strResult = (char*) malloc ((sizeof(char) * sprintf(buffer, "%d", _tabParam[_index].valeur.entier)) + 1);
 
     	if (strResult == NULL)
     	{
@@ -46,7 +47,7 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
     }
     else if(_tabParam[_index].type == PTreel)
     {
-    	strResult = (char*) malloc ((sizeof(char) * sprintf(NULL, "%.2f", _tabParam[_index].valeur.reel)) + 1);
+    	strResult = (char*) malloc ((sizeof(char) * sprintf(buffer, "%.2f", _tabParam[_index].valeur.reel)) + 1);
 
     	if (strResult == NULL)
     	{
@@ -58,7 +59,7 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
     }
     else
     	return strdup(_tabParam[_index].valeur.chaine);
-    
+
     return strResult;
 }
 
@@ -73,15 +74,26 @@ char * ValeurParamToString(TParamDef * _tabParam, const int _index) {
 void PrintParam(TParamDef * _tabParam, const int _nbParam) {
 
 	int indiceTab = 0;
+	char * buffer = NULL;
 
 	while (indiceTab != _nbParam)
 	{
-		if(_tabParam[indiceTab].type == PTentier)
-			printf("-%c %s (%s) [%d] \n", _tabParam[indiceTab].lettre, _tabParam[indiceTab].nom, ParamTypeChaine[0], _tabParam[indiceTab].valeur.entier);
-		else if (_tabParam[indiceTab].type == PTreel)
-			printf("-%c %s (%s) [%f] \n", _tabParam[indiceTab].lettre, _tabParam[indiceTab].nom, ParamTypeChaine[1], _tabParam[indiceTab].valeur.reel);
-		else if (_tabParam[indiceTab].type == PTchaine)
+		/* Le 9999 permet de savoir si les paramètres fournis ont affecté cette élement du tableau */
+		if(_tabParam[indiceTab].type == PTentier && _tabParam[indiceTab].valeur.entier != 9999)
+		{
+			buffer = ValeurParamToString(_tabParam, indiceTab);
+			printf("-%c %s (%s) [%s] \n", _tabParam[indiceTab].lettre, _tabParam[indiceTab].nom, ParamTypeChaine[0], buffer);
+			free(buffer);
+		} /* Le 9.999 permet de savoir si les paramètres fournis ont affecté cette élement du tableau */
+		else if (_tabParam[indiceTab].type == PTreel && _tabParam[indiceTab].valeur.reel != 9.999)
+		{
+			buffer = ValeurParamToString(_tabParam, indiceTab);
+			printf("-%c %s (%s) [%s] \n", _tabParam[indiceTab].lettre, _tabParam[indiceTab].nom, ParamTypeChaine[1], buffer);
+			free(buffer);
+		}
+		else if (_tabParam[indiceTab].type == PTchaine && _tabParam[indiceTab].valeur.chaine != NULL)
 			printf("-%c %s (%s) [%s] \n", _tabParam[indiceTab].lettre, _tabParam[indiceTab].nom, ParamTypeChaine[2], _tabParam[indiceTab].valeur.chaine);
+		
 		indiceTab++;
 	}
 }
@@ -98,9 +110,34 @@ void PrintParam(TParamDef * _tabParam, const int _nbParam) {
 */
 int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const int _argc, const char * _argv[]) {
 
-	int indiceArg = 1, indiceTab = 0, countNbParam = 0, returnValue = 0;
+	int indiceArg = 1, indiceTab = 0, countNbParam = 0, testPairImpaire = _argc;
 	char compaireLettre = '\0';
 
+	/* Test si le nombre de paramètre est correct */
+	if (testPairImpaire%2 == 0)
+   	{
+   		printf("\nErreur, le nombre d'arguments est pair ! \n");
+   		exit(EXIT_FAILURE);
+   	}
+
+   	/* Initialise les valeurs du tableau à des valeurs bien précise.
+   		Cela permet de savoir quel argument étant présent dans la commande pour l'affichage. */
+	while (indiceTab != _nbParam)
+	{
+		if(_tabParam[indiceTab].type == PTentier)
+		_tabParam[indiceTab].valeur.entier = 9999;
+	else if (_tabParam[indiceTab].type == PTreel)
+		_tabParam[indiceTab].valeur.reel = 9.999;
+	else
+		_tabParam[indiceTab].valeur.chaine = NULL;
+
+		indiceTab++;
+	}
+
+	indiceTab = 0;
+
+
+	/* Affecte les valeurs des paramètres fournis au tableau */
 	while (indiceArg != _argc)
 	{
 		compaireLettre = _argv[indiceArg][1];
@@ -125,16 +162,5 @@ int ReadParamFromCommandLine(TParamDef * _tabParam, const int _nbParam, const in
 		indiceTab = 0;
 	}
 
-
-	returnValue = countNbParam;
-
-	/*while (_nbParam != countNbParam)
-	{
-		if(_tabParam[countNbParam].type == PTchaine)
-			free(_tabParam[countNbParam].valeur.chaine);
-
-		countNbParam++;
-	}*/
-
-	return returnValue;
+	return countNbParam;
 }
