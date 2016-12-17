@@ -8,7 +8,10 @@
  * \date 06/12/2016
  *
  */
-
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
 #include "paramcmdl.h"
 
 /**
@@ -36,15 +39,9 @@ int main (const int _argc, const char * _argv[]) {
     /* analyse de la ligne de commande */
     result_arg = ReadParamFromCommandLine(tab_param,nb_param,_argc,_argv);
 
-    if (result_arg < 0)
-    {
-        printf("Erreur de syntaxe dans la saisie des paramètres du programme \nLe programme s'est terminée\n");
-        exit(1);
-    }
-
     /* affichage des nouveaux parametres */
     printf("Valeurs des parametres :\n");
-    PrintParam(tab_param,nb_param);
+    PrintParam(tab_param,result_arg);
 
     
     return 0;

@@ -1,3 +1,8 @@
-tp1_c:tp1_c.c
-	gcc -c tp1_c.c paramcmdl.c
-	gcc tp1_c.c -o tp1_c
+prog:paramcmdl.o tp1_c.o
+	gcc -o prog tp1_c.o paramcmdl.o 
+
+paramcmdl.o:paramcmdl.c
+	gcc -o paramcmdl.o -c paramcmdl.c
+
+tp1_c.o:tp1_c.c
+	gcc -o tp1_c.o -c tp1_c.c
