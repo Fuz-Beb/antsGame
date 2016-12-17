@@ -1,3 +1,4 @@
+
 /**
  * \file tp2_a.c
  * \brief analyseur lexical pour le langage JSON
@@ -126,11 +127,7 @@ void deleteLexData(TLex ** _lexData)
     {
         if(_lexData[0]->tableSymboles[i].type == JSON_STRING)
         {
-            while(_lexData[0]->tableSymboles[i].val.chaine != NULL && _lexData[0]->tableSymboles[i].type == JSON_STRING)
-            {
-                free(_lexData[0]->tableSymboles[i].val.chaine);
-                i++;
-            }
+        	free(_lexData[0]->tableSymboles[i].val.chaine);
         }
         nbSymboles--;
         i++;
@@ -155,7 +152,7 @@ void printLexData(TLex * _lexData)
 	if (_lexData != NULL)
     {
         int nbSymboles = _lexData->nbSymboles, i = 0;
-        printf("Table des symboles : \n -----------------------\n\n");
+        printf("\nTable des symboles : \n--------------------\n");
 
         while (nbSymboles != 0)
         {
@@ -264,9 +261,7 @@ int lex(TLex * _lexData)
 {
 	int i = 1, size = 0, temp = 0;
 	char buffer[2048];
-	char buffer1[2048];
 	memset(buffer, '\0', 2048);
-	memset(buffer1, '\0', 2048);
 
 	while (_lexData->startPos[0] == '\n')
 	{
@@ -324,39 +319,82 @@ int lex(TLex * _lexData)
 			_lexData->startPos = subString(_lexData, 1);
 			return JSON_COMMA;
 		case '"' :
-			
-			/* NE FONCTIONNE PAS */
-
-			/*if (_lexData->startPos[1] = '"')
-				return JSON_STRING;
-
-			
-    		while ((int)_lexData->startPos[i] >=  'A' && (int)_lexData->startPos[i] <= 'Z' &&  i <= size)
-        	{
-        		if ()
-        		i++;
-        	}
+			while (i <= size)
+			{
+				if (_lexData->startPos[i] == '"')
+				{
+					strncpy(buffer, _lexData->startPos, i + 1);
+					_lexData->startPos = subString(_lexData, i + 1);
+					addStringSymbolToLexData(_lexData, buffer);
+					return JSON_STRING;
+				}
 
 
-			while(_lexData->startPos[i] != '"' && _lexData->startPos[i - 1] != '\\' &&  i <= size)
+				if (_lexData->startPos[i] == '\\')
+				{
+					i++;
+
+					switch (_lexData->startPos[i]) {
+
+						case '"' :
+							i++;
+							break;
+						case '\\' :
+							i++;
+							break;
+						case '/' :
+							i++;
+							break;
+						case 'b' :
+							i++;
+							break;
+						case 'f' :
+							i++;
+							break;
+						case 'n' :
+							i++;
+							break;
+						case 'r' :
+							i++;
+							break;
+						case 't' :
+							i++;
+							break;
+						case 'u' :
+							i++;
+							temp = i;
+							while ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9' && _lexData->startPos[i] >= 'A' && (int)_lexData->startPos[i] <= 'F')
+								i++;
+
+							if (temp - i != 4)
+								return JSON_LEX_ERROR;
+                            break;
+
+						default:
+							return JSON_LEX_ERROR;
+					}
+				}
+				else
+					i++;
+			}
+			return JSON_LEX_ERROR;
+
+
+		default:
+			i = 0;
+
+			if (_lexData->startPos[i] == '-')
 				i++;
 
-
-
-    		strncpy(buffer, _lexData->startPos, i + 1);
-    		_lexData->startPos = subString(_lexData, i + 1);
-		    addStringSymbolToLexData(_lexData, buffer);
-		    return JSON_STRING;*/
-		default:
-			if ((int)_lexData->startPos[0] >= '0' && (int)_lexData->startPos[0] <= '9')
+			if ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9')
 			{
-				if ((int)_lexData->startPos[0] == '0' && _lexData->startPos[1] != '.')
+				if ((int)_lexData->startPos[i] == '0' && _lexData->startPos[i+1] != '.')
 				{
 					addIntSymbolToLexData(_lexData, 0);
 					_lexData->startPos = subString(_lexData, 1);
 					return JSON_INT_NUMBER;
 				}
-				else if ((int)_lexData->startPos[0] >= '1' && (int)_lexData->startPos[0] <= '9')
+				else if ((int)_lexData->startPos[i] >= '1' && (int)_lexData->startPos[i] <= '9')
 				{
 					while ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9')
         					i++;
@@ -371,7 +409,7 @@ int lex(TLex * _lexData)
 						return JSON_INT_NUMBER;
         			}
 				}
-				else if ((int)_lexData->startPos[0] == '0' && _lexData->startPos[1] == '.')
+				else if ((int)_lexData->startPos[i] == '0' && _lexData->startPos[i] == '.')
 					i++;
 
 				if ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9')
@@ -387,7 +425,7 @@ int lex(TLex * _lexData)
     					{
     						i++;
 
-    						while ((int)_lexData->startPos[i] >= 0 && (int)_lexData->startPos[i] <= '9')
+    						while ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9')
         						i++;
 
         					strncpy(buffer, _lexData->startPos, i);
@@ -413,6 +451,7 @@ int lex(TLex * _lexData)
 				return JSON_LEX_ERROR;
 	}
 }
+
 
 
 /**
@@ -443,13 +482,7 @@ int main() {
 	int i;
 	TLex * lex_data;
 
-<<<<<<< HEAD
 	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
-=======
-	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
-	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"\"and\"\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
->>>>>>> 671805c43008eccecc7dc2d312a989da9d160f05
-
 	printf("%s",test);
 	printf("\n");
 
