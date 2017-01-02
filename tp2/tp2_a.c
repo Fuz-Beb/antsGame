@@ -58,14 +58,27 @@ typedef struct{
 } TLex;
 
 
-/* Prototypes de fonctions */
-void addIntSymbolToLexData(TLex * _lexData, const int _val);
-void addRealSymbolToLexData(TLex * _lexData, const float _val);
-void addStringSymbolToLexData(TLex * _lexData, char * _val);
-char * subString(TLex * lex_data, int nbCaracteres);
+/**
+ * \fn char * subString(TLex * lex_data, int nbCaracteres)
+ * \brief fonction qui rogne une chaine de caracteres
+ *
+ * \param lex_data donnees de suivi de l'analyse lexicale
+ * \param[in] nbCaracteres le nombre de caracteres a supprimer
+ * \return la nouvelle chaine de caracteres
+ */
+char * subString(TLex * lex_data, int nbCaracteres)
+{
+	char buffer[2048];
+	memset(buffer, '\0', 2048);
+	strncpy(buffer, lex_data->startPos + nbCaracteres, strlen(lex_data->startPos) - nbCaracteres);
+	free(lex_data->startPos);
+	lex_data->startPos = strndup(buffer, strlen(buffer) + 1);
+	return lex_data->startPos;
+}
+
 
 /**
- * \fn int isSep(char _symb)
+ * \fn int isSep(const char _symb)
  * \brief fonction qui teste si un symbole fait partie des separateurs
  *
  * \param[in] _symb symbole a analyser
@@ -118,7 +131,7 @@ TLex * initLexData(char * _data)
  * \brief fonction qui supprime de la memoire les donnees pour
  * l'analyseur lexical
  *
- * \param[in/out] _lexData donnees de l'analyseur lexical
+ * \param _lexData donnees de l'analyseur lexical
  * \return neant
  */
 void deleteLexData(TLex ** _lexData)
@@ -146,7 +159,7 @@ void deleteLexData(TLex ** _lexData)
  * \brief fonction qui affiche les donnees pour
  * l'analyseur lexical
  *
- * \param[in] _lexData donn�es de l'analyseur lexical
+ * \param _lexData donnees de l'analyseur lexical
  * \return neant
  */
 void printLexData(TLex * _lexData)
@@ -186,8 +199,8 @@ void printLexData(TLex * _lexData)
  * \fn void addIntSymbolToLexData(TLex * _lexData, const int _val)
  * \brief fonction qui ajoute un symbole entier a la table des symboles
  *
- * \param[in/out] _lexData donnees de l'analyseur lexical
- * \param[in] _val valeur entiere e ajouter
+ * \param _lexData donnees de l'analyseur lexical
+ * \param[in] _val valeur entiere a ajouter
  * \return neant
  */
 void addIntSymbolToLexData(TLex * _lexData, const int _val)
@@ -210,7 +223,7 @@ void addIntSymbolToLexData(TLex * _lexData, const int _val)
  * \fn void addRealSymbolToLexData(TLex * _lexData, const float _val)
  * \brief fonction qui ajoute un symbole reel a la table des symboles
  *
- * \param[in/out] _lexData donnees de l'analyseur lexical
+ * \param _lexData donnees de l'analyseur lexical
  * \param[in] _val valeur reelle a ajouter
  */
 void addRealSymbolToLexData(TLex * _lexData, const float _val)
@@ -233,7 +246,7 @@ void addRealSymbolToLexData(TLex * _lexData, const float _val)
  * \fn void addStringSymbolToLexData(TLex * _lexData, char * _val)
  * \brief fonction qui ajoute une chaine de caracteres a la table des symboles
  *
- * \param[in/out] _lexData donnees de l'analyseur lexical
+ * \param _lexData donnees de l'analyseur lexical
  * \param[in] _val chaine a ajouter
  */
 void addStringSymbolToLexData(TLex * _lexData, char * _val)
@@ -248,15 +261,15 @@ void addStringSymbolToLexData(TLex * _lexData, char * _val)
         _lexData->nbSymboles += 1;
         int nbrSymbole = _lexData->nbSymboles;
         _lexData->tableSymboles[nbrSymbole - 1].type = JSON_STRING;
-        _lexData->tableSymboles[nbrSymbole - 1].val.chaine = strdup(_val); // Bebo - Possibilite de fuite car si on met juste = val et qu'on le libere...
+        _lexData->tableSymboles[nbrSymbole - 1].val.chaine = strdup(_val);
     }
 }
 
 /**
- * \fn int lex(const char * _entree, TLex * _lexData)
+ * \fn int lex(TLex * _lexData)
  * \brief fonction qui effectue l'analyse lexicale (contient le code l'automate fini)
  *
- * \param[in/out] _lexData donn�es de suivi de l'analyse lexicale
+ * \param _lexData donnees de suivi de l'analyse lexicale
  * \return code d'identification de l'entite lexicale trouvee
 */
 int lex(TLex * _lexData)
@@ -452,26 +465,6 @@ int lex(TLex * _lexData)
 			else
 				return JSON_LEX_ERROR;
 	}
-}
-
-
-
-/**
- * \fn TLex * subString(Tlex * lex_data)
- * \brief fonction qui rogne une chaine de caractères
- *
- * \param[in/out] lex_data données de suivi de l'analyse lexicale
-  * \param[in/out] nbCaracteres le nombre de caractères à supprimer
- * \return la nouvelle chaine de caractères
-*/
-char * subString(TLex * lex_data, int nbCaracteres)
-{
-	char buffer[2048];
-	memset(buffer, '\0', 2048);
-	strncpy(buffer, lex_data->startPos + nbCaracteres, strlen(lex_data->startPos) - nbCaracteres);
-	free(lex_data->startPos);
-	lex_data->startPos = strndup(buffer, strlen(buffer) + 1);
-	return lex_data->startPos;
 }
 
 

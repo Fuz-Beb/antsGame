@@ -144,17 +144,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a769d490ddf9b2cae334051946a61573b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#a769d490ddf9b2cae334051946a61573b">addIntSymbolToLexData</a> (<a class="el" href="structTLex.html">TLex</a> *_lexData, const int _val)</td></tr>
-<tr class="memdesc:a769d490ddf9b2cae334051946a61573b"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui ajoute un symbole entier a la table des symboles  <a href="#a769d490ddf9b2cae334051946a61573b">More...</a><br /></td></tr>
-<tr class="separator:a769d490ddf9b2cae334051946a61573b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42504307caaa42184de9dd79b180b946"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#a42504307caaa42184de9dd79b180b946">addRealSymbolToLexData</a> (<a class="el" href="structTLex.html">TLex</a> *_lexData, const float _val)</td></tr>
-<tr class="memdesc:a42504307caaa42184de9dd79b180b946"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui ajoute un symbole reel a la table des symboles  <a href="#a42504307caaa42184de9dd79b180b946">More...</a><br /></td></tr>
-<tr class="separator:a42504307caaa42184de9dd79b180b946"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc16ce9abf0d176fbe754943171f5c4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#acc16ce9abf0d176fbe754943171f5c4e">addStringSymbolToLexData</a> (<a class="el" href="structTLex.html">TLex</a> *_lexData, char *_val)</td></tr>
-<tr class="memdesc:acc16ce9abf0d176fbe754943171f5c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui ajoute une chaine de caracteres a la table des symboles  <a href="#acc16ce9abf0d176fbe754943171f5c4e">More...</a><br /></td></tr>
-<tr class="separator:acc16ce9abf0d176fbe754943171f5c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbfaf5dc099b6a8b42c607479d862806"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adbfaf5dc099b6a8b42c607479d862806"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>subString</b> (<a class="el" href="structTLex.html">TLex</a> *lex_data, int nbCaracteres)</td></tr>
+<tr class="memitem:adbfaf5dc099b6a8b42c607479d862806"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#adbfaf5dc099b6a8b42c607479d862806">subString</a> (<a class="el" href="structTLex.html">TLex</a> *lex_data, int nbCaracteres)</td></tr>
+<tr class="memdesc:adbfaf5dc099b6a8b42c607479d862806"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui rogne une chaine de caracteres  <a href="#adbfaf5dc099b6a8b42c607479d862806">More...</a><br /></td></tr>
 <tr class="separator:adbfaf5dc099b6a8b42c607479d862806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9869519009e3b965c6401e67261f6c43"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#a9869519009e3b965c6401e67261f6c43">isSep</a> (const char _symb)</td></tr>
 <tr class="memdesc:a9869519009e3b965c6401e67261f6c43"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui teste si un symbole fait partie des separateurs  <a href="#a9869519009e3b965c6401e67261f6c43">More...</a><br /></td></tr>
@@ -168,8 +159,17 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>subString</b> (<a c
 <tr class="memitem:a5cad73df0d00e5735e16356504a923b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#a5cad73df0d00e5735e16356504a923b1">printLexData</a> (<a class="el" href="structTLex.html">TLex</a> *_lexData)</td></tr>
 <tr class="memdesc:a5cad73df0d00e5735e16356504a923b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui affiche les donnees pour l'analyseur lexical  <a href="#a5cad73df0d00e5735e16356504a923b1">More...</a><br /></td></tr>
 <tr class="separator:a5cad73df0d00e5735e16356504a923b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f39d3deacca77d7b4cf543101da84a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f39d3deacca77d7b4cf543101da84a6"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>lex</b> (<a class="el" href="structTLex.html">TLex</a> *_lexData)</td></tr>
+<tr class="memitem:a769d490ddf9b2cae334051946a61573b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#a769d490ddf9b2cae334051946a61573b">addIntSymbolToLexData</a> (<a class="el" href="structTLex.html">TLex</a> *_lexData, const int _val)</td></tr>
+<tr class="memdesc:a769d490ddf9b2cae334051946a61573b"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui ajoute un symbole entier a la table des symboles  <a href="#a769d490ddf9b2cae334051946a61573b">More...</a><br /></td></tr>
+<tr class="separator:a769d490ddf9b2cae334051946a61573b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42504307caaa42184de9dd79b180b946"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#a42504307caaa42184de9dd79b180b946">addRealSymbolToLexData</a> (<a class="el" href="structTLex.html">TLex</a> *_lexData, const float _val)</td></tr>
+<tr class="memdesc:a42504307caaa42184de9dd79b180b946"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui ajoute un symbole reel a la table des symboles  <a href="#a42504307caaa42184de9dd79b180b946">More...</a><br /></td></tr>
+<tr class="separator:a42504307caaa42184de9dd79b180b946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc16ce9abf0d176fbe754943171f5c4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#acc16ce9abf0d176fbe754943171f5c4e">addStringSymbolToLexData</a> (<a class="el" href="structTLex.html">TLex</a> *_lexData, char *_val)</td></tr>
+<tr class="memdesc:acc16ce9abf0d176fbe754943171f5c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui ajoute une chaine de caracteres a la table des symboles  <a href="#acc16ce9abf0d176fbe754943171f5c4e">More...</a><br /></td></tr>
+<tr class="separator:acc16ce9abf0d176fbe754943171f5c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f39d3deacca77d7b4cf543101da84a6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#a4f39d3deacca77d7b4cf543101da84a6">lex</a> (<a class="el" href="structTLex.html">TLex</a> *_lexData)</td></tr>
+<tr class="memdesc:a4f39d3deacca77d7b4cf543101da84a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui effectue l'analyse lexicale (contient le code l'automate fini)  <a href="#a4f39d3deacca77d7b4cf543101da84a6">More...</a><br /></td></tr>
 <tr class="separator:a4f39d3deacca77d7b4cf543101da84a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tp2__a_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
@@ -383,10 +383,12 @@ Pierrick BOBET </dd></dl>
 <p>fonction qui ajoute un symbole entier a la table des symboles </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">_lexData</td><td>donnees de l'analyseur lexical </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>valeur entiere a ajouter </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>neant </dd></dl>
 
 </div>
 </div>
@@ -417,7 +419,8 @@ Pierrick BOBET </dd></dl>
 <p>fonction qui ajoute un symbole reel a la table des symboles </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">_lexData</td><td>donnees de l'analyseur lexical </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>valeur reelle a ajouter </td></tr>
   </table>
   </dd>
 </dl>
@@ -451,7 +454,8 @@ Pierrick BOBET </dd></dl>
 <p>fonction qui ajoute une chaine de caracteres a la table des symboles </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">_lexData</td><td>donnees de l'analyseur lexical </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>chaine a ajouter </td></tr>
   </table>
   </dd>
 </dl>
@@ -475,10 +479,11 @@ Pierrick BOBET </dd></dl>
 <p>fonction qui supprime de la memoire les donnees pour l'analyseur lexical </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">_lexData</td><td>donnees de l'analyseur lexical </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>neant </dd></dl>
 
 </div>
 </div>
@@ -532,6 +537,31 @@ Pierrick BOBET </dd></dl>
 
 </div>
 </div>
+<a class="anchor" id="a4f39d3deacca77d7b4cf543101da84a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTLex.html">TLex</a> *&#160;</td>
+          <td class="paramname"><em>_lexData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fonction qui effectue l'analyse lexicale (contient le code l'automate fini) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_lexData</td><td>donnees de suivi de l'analyse lexicale </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>code d'identification de l'entite lexicale trouvee </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a5cad73df0d00e5735e16356504a923b1"></a>
 <div class="memitem">
 <div class="memproto">
@@ -549,11 +579,47 @@ Pierrick BOBET </dd></dl>
 <p>fonction qui affiche les donnees pour l'analyseur lexical </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">_lexData</td><td>donn�es de l'analyseur lexical </td></tr>
+    <tr><td class="paramname">_lexData</td><td>donnees de l'analyseur lexical </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>neant </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adbfaf5dc099b6a8b42c607479d862806"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * subString </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTLex.html">TLex</a> *&#160;</td>
+          <td class="paramname"><em>lex_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbCaracteres</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fonction qui rogne une chaine de caracteres </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">lex_data</td><td>donnees de suivi de l'analyse lexicale </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nbCaracteres</td><td>le nombre de caracteres a supprimer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>la nouvelle chaine de caracteres </dd></dl>
 
 </div>
 </div>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['printlexdata',['printLexData',['../tp2__a_8c.html#a5cad73df0d00e5735e16356504a923b1',1,'tp2_a.c']]]
+  ['nblignes',['nbLignes',['../structTLex.html#a74499b75b25dc1bce1fb2f66af6ce1e2',1,'TLex']]],
+  ['nbsymboles',['nbSymboles',['../structTLex.html#a84d0d3a30f4b42f8db675f8cbb60373f',1,'TLex']]]
 ];
