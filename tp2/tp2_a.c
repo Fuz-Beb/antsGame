@@ -3,8 +3,10 @@
  * \file tp2_a.c
  * \brief analyseur lexical pour le langage JSON
  * \author NM
+ * \author Rémy BOUTELOUP
+ * \author Pierrick BOBET
  * \version 0.1
- * \date 25/11/2015
+ * \date 02/01/2017
  *
  */
 

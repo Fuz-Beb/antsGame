@@ -1,0 +1,8 @@
+digraph "TLex"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="TLex",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" tableSymboles" ,fontname="Helvetica"];
+  Node2 [label="TSymbole",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structTSymbole.html",tooltip="union permettant de manipuler un entier/reel/chaine pour la table des symboles "];
+}
