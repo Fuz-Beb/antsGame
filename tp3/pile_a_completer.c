@@ -31,7 +31,7 @@ TIntPile * initIntPile() {
     TIntPile * pile = (TIntPile*)malloc(_DEFAULT_PILE_SIZE + 1);
     pile->data = (int*)malloc(sizeof(int));
     pile->indexSommet = 0;
-    pile->size = sizeof(data);
+    pile->size = (int)sizeof(int);
 
     return pile;
 }
@@ -58,14 +58,21 @@ void deleteIntPile(TIntPile ** _pile) {
  */
 void printIntPile(TIntPile * _pile) {
 
-	int nbrInt = _pile->indexSommet, i = 0;
-
-	while (nbrInt > 0)
+	if (_pile != NULL)
 	{
-		printf("%d", _pile->data[$i]);
-		nbrInt--;
-		i++;
+		int nbrInt = _pile->indexSommet, i = 0;
+
+		while (nbrInt > 0)
+		{
+			printf("%d", _pile->data[i]);
+			nbrInt--;
+			i++;
+		}
 	}
+	else
+		printf("-- Pile non initialisée ! -- \n");
+
+	printf("\n");
 }
 
 /**
@@ -79,19 +86,14 @@ void printIntPile(TIntPile * _pile) {
  */
 void empilerInt(TIntPile * _pile, int _val) {
 
-	if (_pile->size == _pile->IndexSommet * (_DEFAULT_PILE_SIZE + 1))
+	if (_pile->size == _pile->indexSommet * (sizeof(int)))
 	{
-		_pile->data = realloc(_pile->data, (_pile->IndexSommet + 1) * (_DEFAULT_PILE_SIZE + 1))
+		_pile->data = realloc(_pile->data, (_pile->indexSommet + 1) * (sizeof(int)));
 	}
 
-		_pile->data[_pile->IndexSommet] = _val;
-		_pile->IndexSommet += 1;
-		_pile->size = _pile->IndexSommet * (_DEFAULT_PILE_SIZE + 1);
-
-	
-  _pile->data[0] = _val;
-  _pile->indexSommet++;
-  _pile->size+= sizeof(_val);
+		_pile->data[_pile->indexSommet] = _val;
+		_pile->indexSommet += 1;
+		_pile->size = _pile->indexSommet * (sizeof(int));
 }
 
 /**
@@ -102,7 +104,22 @@ void empilerInt(TIntPile * _pile, int _val) {
  * \return l'entier en sommet de pile (0 si la pile est vide)
  */
 int depilerInt(TIntPile * _pile) {
-/* A ECRIRE */
+
+	if (_pile != NULL)
+	{
+		if (_pile->indexSommet == 0)
+		{
+			printf("-- La pile est vide ! -- \n");
+			return 0;
+		}
+		else
+		{
+			_pile->indexSommet -= 1;
+			return _pile->data[_pile->indexSommet + 1];
+		}
+	}
+	else
+		printf("-- Pile non initialisée ! -- \n");
 }
 
 /**
@@ -113,7 +130,18 @@ int depilerInt(TIntPile * _pile) {
  * \return l'entier en sommet de pile (0 si la pile est vide)
  */
 int sommetInt(TIntPile * _pile) {
-/* A ECRIRE */
+
+	if (_pile != NULL)
+	{
+		if (_pile->indexSommet == 0)
+		{
+			printf("-- La pile est vide ! -- \n");
+			return 0;
+		}
+		return _pile->data[_pile->indexSommet];
+	}
+	else
+		printf("-- Pile non initialisée ! -- \n");
 }
 
 
@@ -206,15 +234,15 @@ int main(void) {
 		printIntPile(p);
 		p = initIntPile();
 		printIntPile(p);
-		for ( i=0;i<35;i++) {
+		for ( i=0;i<20;i++) {
 			empilerInt(p,sommetInt(p)+i);
 			printIntPile(p);
 		}
-		for ( i=0;i<40;i++) {
+		/*for ( i=0;i<10;i++) {
 			int r = depilerInt(p);
 			printf("r=%d\n",r);
 			printIntPile(p);
-		}
+		}*/
 		deleteIntPile(&p);
     }
     /* tests pour un pile de void * */
