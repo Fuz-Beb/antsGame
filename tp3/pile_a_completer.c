@@ -182,7 +182,7 @@ TVoidPile * initVoidPile() {
         exit(-1);
     }
 
-    voidPile->data = (void**)malloc(sizeof(int));
+    voidPile->data = (void**)malloc(sizeof(void *));
 
     if(voidPile->data == NULL)
     {
@@ -190,7 +190,8 @@ TVoidPile * initVoidPile() {
         exit(-1);
     }
 
-    voidPile->size = (int)sizeof(int);
+    voidPile->indexSommet = 0;
+    voidPile->size = (int)sizeof(void *);
     return voidPile;
 }
 
@@ -203,7 +204,6 @@ TVoidPile * initVoidPile() {
  * \return neant
  */
 void deleteVoidPile(TVoidPile ** _pile) {
-  free(_pile[0]->data[0]);
   free(_pile[0]->data);
   free(_pile[0]);
 }
@@ -224,7 +224,7 @@ void printVoidPile(TVoidPile * _pile) {
 
 		while (nbrObjet > 0)
 		{
-			printf("%p", _pile->data[0][i]);
+			printf("%p", _pile->data[i]);
 			nbrObjet--;
 			i++;
 		}
@@ -245,14 +245,14 @@ void printVoidPile(TVoidPile * _pile) {
  */
 void empilerVoid(TVoidPile * _pile, void * _val) {
 
-	if (_pile->size == _pile->indexSommet * (sizeof(int)))
+	if (_pile->size == _pile->indexSommet * (sizeof(void *)))
 	{
-		_pile->data[] = realloc(_pile->data[], (_pile->indexSommet + 1) * (sizeof(int)));
+		_pile->data = realloc(_pile->data, (_pile->indexSommet + 1) * (sizeof(void *)));
 	}
 
-		_pile->data[0][_pile->indexSommet] = _val;
+		_pile->data[_pile->indexSommet] = _val;
 		_pile->indexSommet += 1;
-		_pile->size = _pile->indexSommet * (sizeof(int));
+		_pile->size = _pile->indexSommet * (sizeof(void *));
 }
 
 
@@ -275,7 +275,7 @@ void * depilerVoid(TVoidPile * _pile) {
 		else
 		{
 			_pile->indexSommet -= 1;
-			return _pile->data[0][_pile->indexSommet];
+			return _pile->data[_pile->indexSommet];
 		}
 	}
 	else
@@ -298,7 +298,7 @@ void * sommetVoid(TVoidPile * _pile) {
 			printf("-- La pile est vide ! -- \n");
 			return 0;
 		}
-		return _pile->data[0][_pile->indexSommet - 1];
+		return _pile->data[_pile->indexSommet - 1];
 	}
 	else
 		printf("-- Pile non initialisée ! -- \n");
