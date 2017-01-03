@@ -138,7 +138,7 @@ int sommetInt(TIntPile * _pile) {
 			printf("-- La pile est vide ! -- \n");
 			return 0;
 		}
-		return _pile->data[_pile->indexSommet];
+		return _pile->data[_pile->indexSommet - 1];
 	}
 	else
 		printf("-- Pile non initialisée ! -- \n");
@@ -238,11 +238,11 @@ int main(void) {
 			empilerInt(p,sommetInt(p)+i);
 			printIntPile(p);
 		}
-		/*for ( i=0;i<10;i++) {
+		for ( i=0;i<20;i++) {
 			int r = depilerInt(p);
 			printf("r=%d\n",r);
 			printIntPile(p);
-		}*/
+		}
 		deleteIntPile(&p);
     }
     /* tests pour un pile de void * */
