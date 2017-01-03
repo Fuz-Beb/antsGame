@@ -57,14 +57,15 @@ void deleteIntPile(TIntPile ** _pile) {
  * \return neant
  */
 void printIntPile(TIntPile * _pile) {
-/*
-  if(_pile->size == 0)
-  {
-      printf("%d", _pile->data[0]);
-      printf("%d", _pile->indexSommet);
-      printf("%d", _pile->size);
-  }
-*/
+
+	int nbrInt = _pile->indexSommet, i = 0;
+
+	while (nbrInt > 0)
+	{
+		printf("%d", _pile->data[$i]);
+		nbrInt--;
+		i++;
+	}
 }
 
 /**
@@ -77,9 +78,20 @@ void printIntPile(TIntPile * _pile) {
  * \return neant
  */
 void empilerInt(TIntPile * _pile, int _val) {
-  /*_pile->data[0] = _val;
+
+	if (_pile->size == _pile->IndexSommet * (_DEFAULT_PILE_SIZE + 1))
+	{
+		_pile->data = realloc(_pile->data, (_pile->IndexSommet + 1) * (_DEFAULT_PILE_SIZE + 1))
+	}
+
+		_pile->data[_pile->IndexSommet] = _val;
+		_pile->IndexSommet += 1;
+		_pile->size = _pile->IndexSommet * (_DEFAULT_PILE_SIZE + 1);
+
+	
+  _pile->data[0] = _val;
   _pile->indexSommet++;
-  _pile->size+= sizeof(_val);*/
+  _pile->size+= sizeof(_val);
 }
 
 /**

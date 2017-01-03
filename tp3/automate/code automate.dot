@@ -1,0 +1,58 @@
+digraph G { 
+
+            I_0 -> I_1 [label="O"];
+            I_0 ->I_2 [label="{"];
+
+            I_2 -> I_3 [label="}"];
+            I_2 ->I_4 [label="M"];
+            I_2 -> I_5 [label="P"];
+            I_2 ->I_6 [label="S"];
+
+            I_4 ->I_7 [label="}"];
+
+            I_5 ->I_8 [label=","];
+
+            I_6 ->I_9 [label=":"];
+
+            I_8 ->I_10 [label="M"];
+            I_8 ->I_5 [label="P"];
+            I_8 ->I_6 [label="S"];
+
+            I_9 ->I_11 [label="V"];
+            I_9 ->I_12 [label="s"];
+            I_9 ->I_13 [label="n"];
+            I_9 ->I_14 [label="O"];
+            I_9 ->I_15 [label="A"];
+            I_9 ->I_16 [label="t"];
+            I_9 ->I_17 [label="f"];
+            I_9 ->I_18 [label="u"];
+            I_9 ->I_2 [label="{"];
+            I_9 ->I_19 [label="["];
+
+            I_19 ->I_20 [label="]"];
+            I_19 ->I_21 [label="E"];
+            I_19 ->I_22 [label="V"];
+            I_19 ->I_12 [label="s"];
+            I_19 ->I_13 [label="n"];
+            I_19 ->I_14 [label="O"];
+            I_19 ->I_15 [label="A"];
+            I_19 ->I_16 [label="t"];
+            I_19 ->I_17 [label="f"];
+            I_19 ->I_18 [label="u"];
+            I_19 ->I_2 [label="{"];
+            I_19 ->I_19 [label="["];
+
+            I_21 -> I_23 [label="]"];
+            I_22 -> I_24 [label=","];
+            I_24 -> I_25 [label="E"];
+            I_24 -> I_22 [label="V"];
+            I_24 -> I_12 [label="s"];
+            I_24 -> I_13 [label="n"];
+            I_24 -> I_14 [label="O"];
+            I_24 -> I_15 [label="A"];
+            I_24 -> I_16 [label="t"];
+            I_24 -> I_17 [label="f"];
+            I_24 -> I_18 [label="u"];
+            I_24 -> I_2 [label="{"];
+            I_24 -> I_19 [label="["];
+}
