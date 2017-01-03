@@ -178,7 +178,22 @@ void deleteVoidPile(TVoidPile ** _pile) {
  * \return neant
  */
 void printVoidPile(TVoidPile * _pile) {
-/* A ECRIRE */
+
+	if (_pile != NULL)
+	{
+		int nbrObjet = _pile->indexSommet, i = 0;
+
+		while (nbrObjet > 0)
+		{
+			printf("%p", _pile->data[0][i]);
+			nbrObjet--;
+			i++;
+		}
+	}
+	else
+		printf("-- Pile non initialisée ! -- \n");
+
+	printf("\n");
 }
 
 /**
@@ -190,8 +205,17 @@ void printVoidPile(TVoidPile * _pile) {
  * \return neant
  */
 void empilerVoid(TVoidPile * _pile, void * _val) {
-/* A ECRIRE */
+
+	if (_pile->size == _pile->indexSommet * (sizeof(int)))
+	{
+		_pile->data[] = realloc(_pile->data[], (_pile->indexSommet + 1) * (sizeof(int)));
+	}
+
+		_pile->data[0][_pile->indexSommet] = _val;
+		_pile->indexSommet += 1;
+		_pile->size = _pile->indexSommet * (sizeof(int));
 }
+
 
 /**
  * \fn void * depilerVoid(TVoidPile * _pile)
@@ -201,7 +225,22 @@ void empilerVoid(TVoidPile * _pile, void * _val) {
  * \return pointeur sur void (0 si la pile est vide)
  */
 void * depilerVoid(TVoidPile * _pile) {
-/* A ECRIRE */
+
+	if (_pile != NULL)
+	{
+		if (_pile->indexSommet == 0)
+		{
+			printf("-- La pile est vide ! -- \n");
+			return 0;
+		}
+		else
+		{
+			_pile->indexSommet -= 1;
+			return _pile->data[0][_pile->indexSommet];
+		}
+	}
+	else
+		printf("-- Pile non initialisée ! -- \n");
 }
 
 /**
@@ -212,7 +251,18 @@ void * depilerVoid(TVoidPile * _pile) {
  * \return la valeur void * du sommet (0 si la pile est vide)
  */
 void * sommetVoid(TVoidPile * _pile) {
-/* A ECRIRE */
+
+	if (_pile != NULL)
+	{
+		if (_pile->indexSommet == 0)
+		{
+			printf("-- La pile est vide ! -- \n");
+			return 0;
+		}
+		return _pile->data[0][_pile->indexSommet - 1];
+	}
+	else
+		printf("-- Pile non initialisée ! -- \n");
 }
 
 
