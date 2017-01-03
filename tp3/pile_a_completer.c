@@ -29,7 +29,21 @@
  */
 TIntPile * initIntPile() {
     TIntPile * pile = (TIntPile*)malloc(_DEFAULT_PILE_SIZE + 1);
+
+    if(pile == NULL)
+    {
+        printf("Error with the heap");
+        exit(-1);
+    }
+
     pile->data = (int*)malloc(sizeof(int));
+
+    if(pile->data == NULL)
+    {
+        printf("Error with the heap");
+        exit(-1);
+    }
+
     pile->indexSommet = 0;
     pile->size = (int)sizeof(int);
 
@@ -89,6 +103,12 @@ void empilerInt(TIntPile * _pile, int _val) {
 	if (_pile->size == _pile->indexSommet * (sizeof(int)))
 	{
 		_pile->data = realloc(_pile->data, (_pile->indexSommet + 1) * (sizeof(int)));
+
+    if(_pile->data == NULL)
+    {
+        printf("Error with the heap");
+        exit(-1);
+    }
 	}
 
 		_pile->data[_pile->indexSommet] = _val;
@@ -154,7 +174,24 @@ int sommetInt(TIntPile * _pile) {
  * \return pointeur sur une pile TVoidPile
  */
 TVoidPile * initVoidPile() {
-/* A ECRIRE */
+    TVoidPile * voidPile = (TVoidPile*)malloc(_DEFAULT_PILE_SIZE + 1);
+
+    if(voidPile == NULL)
+    {
+        printf("Error with the heap");
+        exit(-1);
+    }
+
+    voidPile->data = (void**)malloc(sizeof(int));
+
+    if(voidPile->data == NULL)
+    {
+        printf("Error with the heap");
+        exit(-1);
+    }
+
+    voidPile->size = (int)sizeof(int);
+    return voidPile;
 }
 
 
@@ -166,7 +203,9 @@ TVoidPile * initVoidPile() {
  * \return neant
  */
 void deleteVoidPile(TVoidPile ** _pile) {
-/* A ECRIRE */
+  free(_pile[0]->data[0]);
+  free(_pile[0]->data);
+  free(_pile[0]);
 }
 
 
