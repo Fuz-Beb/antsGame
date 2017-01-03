@@ -28,10 +28,10 @@
  * \return pointeur sur TIntPile cree en memoire
  */
 TIntPile * initIntPile() {
-    TIntPile * pile = (TIntPile*)malloc(sizeof(TIntPile) * sizeof(initIntPile));
-    pile->data = 0;
+    TIntPile * pile = (TIntPile*)malloc(_DEFAULT_PILE_SIZE + 1);
+    pile->data = (int*)malloc(sizeof(int));
     pile->indexSommet = 0;
-    pile->size = 0;
+    pile->size = sizeof(data);
 
     return pile;
 }
@@ -68,7 +68,7 @@ void printIntPile(TIntPile * _pile) {
 }
 
 /**
- * \fn void empilerInt(TIntPile * _pile, int _val)
+ * \fn void empilerInt(TIntPile * _pile, int _val)0
  * \brief empiler un entier sur la pile, si la zone memoire reservee
  * n'est pas suffisante, celle-ci est etendue
  *
