@@ -115,7 +115,7 @@ int depilerInt(TIntPile * _pile) {
 		else
 		{
 			_pile->indexSommet -= 1;
-			return _pile->data[_pile->indexSommet + 1];
+			return _pile->data[_pile->indexSommet];
 		}
 	}
 	else
