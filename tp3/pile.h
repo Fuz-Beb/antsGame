@@ -2,8 +2,10 @@
  * \file pile.h
  * \brief gestion d'une pile
  * \author NM
+ * \author Pierrick BOBET
+ * \author Rémy BOUTELOUP
  * \version 0.1
- * \date 11/12/2015
+ * \date 03/01/2017
  *
  */
 

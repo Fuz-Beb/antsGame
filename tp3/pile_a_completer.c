@@ -2,15 +2,16 @@
  * \file pile.c
  * \brief gestion d'une pile
  * \author NM
+ * \author Pierrick BOBET
+ * \author Rémy BOUTELOUP
  * \version 0.1
- * \date 11/12/2015
+ * \date 03/01/2017
  *
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include "pile.h"
-
 
 /** constante pour la taille par defaut d'une pile (utilise pour
  * la reservation memoire) */
@@ -27,9 +28,13 @@
  * \return pointeur sur TIntPile cree en memoire
  */
 TIntPile * initIntPile() {
-/* A ECRIRE */
-}
+    TIntPile * pile = (TIntPile*)malloc(sizeof(TIntPile) * sizeof(initIntPile));
+    pile->data = 0;
+    pile->indexSommet = 0;
+    pile->size = 0;
 
+    return pile;
+}
 
 /**
  * \fn void deleteIntPile(TIntPile ** _pile)
@@ -39,7 +44,8 @@ TIntPile * initIntPile() {
  * \return neant
  */
 void deleteIntPile(TIntPile ** _pile) {
-/* A ECRIRE */
+    free(_pile[0]->data);
+    free(_pile[0]);
 }
 
 
@@ -51,7 +57,14 @@ void deleteIntPile(TIntPile ** _pile) {
  * \return neant
  */
 void printIntPile(TIntPile * _pile) {
-/* A ECRIRE */
+/*
+  if(_pile->size == 0)
+  {
+      printf("%d", _pile->data[0]);
+      printf("%d", _pile->indexSommet);
+      printf("%d", _pile->size);
+  }
+*/
 }
 
 /**
@@ -64,7 +77,9 @@ void printIntPile(TIntPile * _pile) {
  * \return neant
  */
 void empilerInt(TIntPile * _pile, int _val) {
-/* A ECRIRE */
+  /*_pile->data[0] = _val;
+  _pile->indexSommet++;
+  _pile->size+= sizeof(_val);*/
 }
 
 /**
@@ -161,8 +176,8 @@ void * sommetVoid(TVoidPile * _pile) {
 }
 
 
-x/** code pour test */
-#ifdef TEST
+/** code pour test */
+/*#ifdef TEST*/
 /**
  * \fn int main(void)
  * \brief fonction principale utilisee uniquement en cas de tests
@@ -227,5 +242,7 @@ int main(void) {
 		deleteVoidPile(&q);
 
 	}
+
+  return 0;
 }
-#endif
+/*#endif*/
