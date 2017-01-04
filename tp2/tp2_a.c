@@ -437,7 +437,7 @@ int lex(TLex * _lexData)
 */
 char * formatLex (TLex * _lexData)
 {
-	int nbrObj = 1, i = 0;
+	int nbrObj = 0, i = 0;
 	char * obj = (char*) malloc(sizeof(char) * nbrObj);
 
 	do
@@ -452,40 +452,40 @@ char * formatLex (TLex * _lexData)
 			switch (i) {
 
 				case 1 :
-					obj[nbrObj - 2] = 'T';
+					obj[nbrObj - 1] = 'T';
 					break;
 				case 2 :
-					obj[nbrObj - 2] = 'F';
+					obj[nbrObj - 1] = 'F';
 					break;
 				case 3 :
-					obj[nbrObj - 2] = 'U';
+					obj[nbrObj - 1] = 'U';
 					break;
 				case 4 :
-					obj[nbrObj - 2] = '{';
+					obj[nbrObj - 1] = '{';
 					break;
 				case 5 :
-					obj[nbrObj - 2] = '}';
+					obj[nbrObj - 1] = '}';
 					break;
 				case 6 :
-					obj[nbrObj - 2] = '[';
+					obj[nbrObj - 1] = '[';
 					break;
 				case 7 :
-					obj[nbrObj - 2] = ']';
+					obj[nbrObj - 1] = ']';
 					break;
 				case 8 :
-					obj[nbrObj - 2] = ',';
+					obj[nbrObj - 1] = ',';
 					break;
 				case 9 :
-					obj[nbrObj - 2] = ':';
+					obj[nbrObj - 1] = ':';
 					break;
 				case 10 :
-					obj[nbrObj - 2] = 'S';
+					obj[nbrObj - 1] = 'S';
 					break;
 				case 11 :
-					obj[nbrObj - 2] = 'N';
+					obj[nbrObj - 1] = 'N';
 					break;
 				case 12 :
-					obj[nbrObj - 2] = 'N';
+					obj[nbrObj - 1] = 'N';
 					break;
 			}
 		}

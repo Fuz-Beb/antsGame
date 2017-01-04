@@ -487,8 +487,11 @@ char * formatLex (TLex * _lexData)
 				case 12 :
 					obj[nbrObj - 2] = 'N';
 					break;
+				default:
+					break;
 			}
 		}
+		obj[nbrObj - 1] = '\0';
 
 		printf("lex()=%d\n",i);
 
