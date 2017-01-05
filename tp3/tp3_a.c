@@ -601,31 +601,36 @@ int goTo(TSynt * _syntData, TIntPile * pile){
  * \fn int main()
  * \brief fonction principale
  */
-int main(int argc, char *argv[], char * file)
+int main(int argc, char *argv[])
 {
 	// ANALYSE LEXICAL //
 
 	char * test;
 	char * obj;
-	char fichierChaine[1024];
+	char fichierChaine[3000];
 	TLex * lex_data;
 	TIntPile * pile;
 	FILE* fichier = NULL;
+	long tailleFichier = 0;
 
-	fichier = fopen(file, "r");
+	fichier = fopen(argv[1], "r");
 
 	if(fichier == NULL)
 	{
 			printf("Erreur avec l'ouverture du fichier !");
 	}
 
-	/*fgets(fichierChaine, 2, fichier);*/
+	fseek(fichier, 0, SEEK_END);
+	tailleFichier = ftell(fichier);
+	rewind(fichier);
 
-
+	fgets(fichierChaine, tailleFichier, fichier);
 
 	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
-	test = strdup("{ \"test\" : 3.14, \"a\" : 1 , \"b\" : 2 , \"c\" : 3 }");
+	/*test = strdup("{ \"test\" : 3.14, \"a\" : 1 , \"b\" : 2 , \"c\" : 3 }");*/
+	test = strdup(fichierChaine);
 
+	fclose(fichier);
 
 	printf("\n-- CHAINE DE DEPART -- \n\n%s",test);
 	printf("\n");
