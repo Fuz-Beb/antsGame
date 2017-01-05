@@ -120,12 +120,20 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case '{':
 						deplacement(_syntData, pile, 2);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 1:
 				switch (_syntData->startPos[0]) {
 					case '#':
 						printf("-- ACCEPTER -- ");
+						exit(0);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
 						exit(0);
 						break;
 				}
@@ -138,12 +146,20 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case 'S':
 						deplacement(_syntData, pile, 6);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 3:
 				switch (_syntData->startPos[0]) {
 					case '}':
 						deplacement(_syntData, pile, 7);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -154,6 +170,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 						break;
 					case ',':
 						deplacement(_syntData, pile, 8);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -171,12 +191,20 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case '#':
 						reduction(_syntData, pile, 1);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 6:
 				switch (_syntData->startPos[0]) {
 					case ':':
 						deplacement(_syntData, pile, 9);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -194,12 +222,20 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case '#':
 						reduction(_syntData, pile, 2);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 8:
 				switch (_syntData->startPos[0]) {
 					case 'S':
 						deplacement(_syntData, pile, 6);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -226,12 +262,20 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case 'U':
 						deplacement(_syntData, pile, 19);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 10:
 				switch (_syntData->startPos[0]) {
 					case '}':
 						reduction(_syntData, pile, 4);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -246,6 +290,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case ',':
 						reduction(_syntData, pile, 12);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 12:
@@ -259,6 +307,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case ',':
 						reduction(_syntData, pile, 13);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 13:
@@ -268,6 +320,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 						break;
 					case ',':
 						reduction(_syntData, pile, 5);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -297,6 +353,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case 'U':
 						deplacement(_syntData, pile, 19);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 15:
@@ -309,6 +369,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 						break;
 					case ',':
 						reduction(_syntData, pile, 10);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -323,6 +387,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case ',':
 						reduction(_syntData, pile, 11);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 17:
@@ -335,6 +403,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 						break;
 					case ',':
 						reduction(_syntData, pile, 14);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -349,6 +421,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case ',':
 						reduction(_syntData, pile, 15);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 19:
@@ -362,12 +438,20 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case ',':
 						reduction(_syntData, pile, 16);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 20:
 				switch (_syntData->startPos[0]) {
 					case ']':
 						deplacement(_syntData, pile, 23);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -378,6 +462,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 						break;
 					case ',':
 						deplacement(_syntData, pile, 24);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -392,6 +480,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case ',':
 						reduction(_syntData, pile, 6);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 23:
@@ -404,6 +496,10 @@ void synt(TSynt * _syntData, TIntPile * pile)
 						break;
 					case ',':
 						reduction(_syntData, pile, 7);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -433,12 +529,20 @@ void synt(TSynt * _syntData, TIntPile * pile)
 					case 'U':
 						deplacement(_syntData, pile, 19);
 						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
+						break;
 				}
 				break;
 			case 25:
 				switch (_syntData->startPos[0]) {
 					case ']':
 						reduction(_syntData, pile, 9);
+						break;
+					default :
+						printf("Element non reconnu !!! ");
+						exit(0);
 						break;
 				}
 				break;
@@ -610,10 +714,10 @@ int main() {
 	TLex * lex_data;
 	TIntPile * pile;
 
-	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
+	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
+	test = strdup("{\"test\" : 0.2234 }");
 
 	printf("\n-- CHAINE DE DEPART -- \n\n%s",test);
-	printf("\n");
 
 	lex_data = initLexData(test);
 
@@ -636,9 +740,9 @@ int main() {
 
 	synt(synt_data, pile);
 
-	/*deleteIntPile(&pile);*/
-	/*deleteSyntData(&synt_data);*/
+	deleteIntPile(&pile);
+	deleteSyntData(&synt_data);
 	free(obj);
 
 	return 0;
-}
+	}

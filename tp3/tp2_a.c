@@ -384,8 +384,8 @@ int lex(TLex * _lexData)
 						return JSON_INT_NUMBER;
         			}
 				}
-				else if ((int)_lexData->startPos[i] == '0' && _lexData->startPos[i] == '.')
-					i++;
+				else if ((int)_lexData->startPos[i] == '0' && _lexData->startPos[i + 1] == '.')
+					i += 2;
 
 				if ((int)_lexData->startPos[i] >= '0' && (int)_lexData->startPos[i] <= '9')
 				{
