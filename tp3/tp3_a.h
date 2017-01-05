@@ -1,4 +1,3 @@
-
 /**
  * \file tp2_a.c
  * \brief analyseur lexical pour le langage JSON
@@ -26,10 +25,6 @@
 #define JSON_STRING 10 /**<entite lexicale chaine de caracteres */
 #define JSON_INT_NUMBER 11 /**< entite lexicale nombre entier */
 #define JSON_REAL_NUMBER 12 /**< entite lexicale nombre reel */
-
-
-
-
 
 /**
  * \struct TSynt
