@@ -27,6 +27,10 @@
 #define JSON_INT_NUMBER 11 /**< entite lexicale nombre entier */
 #define JSON_REAL_NUMBER 12 /**< entite lexicale nombre reel */
 
+
+
+
+
 /**
  * \struct TSynt
  * \brief structure contenant tous les parametres/donnees pour
@@ -35,11 +39,10 @@
 typedef struct{
 	char * data; /**< chaine a parcourir */
 	char * startPos; /**< position de depart pour la prochaine analyse */
-	char * symOk /**< contient l'alphabet et les symboles auxilieres reconnus */
-	int seqOk /**< nombre de caractère reconnu par l'analyseur */
+	char * symOk; /**< contient l'alphabet et les symboles auxilieres reconnus */
+	int seqOk; /**< nombre de caractère reconnu par l'analyseur */
 	int nbSymboles; /**< taille du tableau tableSymboles */
 } TSynt;
-
 
 /**
  * \fn TSynt * initSyntData(char * _data)
@@ -62,12 +65,44 @@ TSynt * initSyntData(char * _data);
 void deleteSyntData(TSynt ** _syntData);
 
 /**
- * \fn void synt(TSynt * _syntData)
+ * \fn void synt(TSynt * _syntData, TIntPile * pile)
  * \brief fonction qui effectue l'analyse syntaxique
  *
  * \param _syntData donnees de suivi de l'analyse syntaxique
  * \return neant
 */
-void synt(TSynt * _syntData)
+void synt(TSynt * _syntData, TIntPile * pile);
 
+/**
+ * \fn void deplacement(TSynt * _syntData, TIntPile * pile, int numEtat)
+ * \brief fonction qui place le numéro d'un état dans la pile
+ *
+ * \param _syntData donnees de suivi de l'analyse syntaxique
+ * \param pile donnees de suivi de la pile
+ * \param numEtat numero de l'état concerne
+ * \return neant
+*/
+void deplacement(TSynt * _syntData, TIntPile * pile, int numEtat);
+
+
+/**
+ * \fn void reduction(TSynt * _syntData, TIntPile * pile, int numEtat){
+ * \brief fonction qui effectue la reduction syntaxique
+ *
+ * \param _syntData donnees de suivi de l'analyse syntaxique
+ * \param pile donnees de suivi de la pile
+ * \param numEtat numero de l'état concerne
+ * \return neant
+*/
+void reduction(TSynt * _syntData, TIntPile * pile, int numEtat);
+
+/**
+ * \fn int goTo(TSynt * _syntData, TIntPile * pile)
+ * \brief fonction qui effectue la méthode goto
+ *
+ * \param _syntData donnees de suivi de l'analyse syntaxique
+ * \param pile donnees de suivi de la pile
+ * \return le nouveau numero de l'etat a ajouter a la pile
+*/
+int goTo(TSynt * _syntData, TIntPile * pile);
 #endif

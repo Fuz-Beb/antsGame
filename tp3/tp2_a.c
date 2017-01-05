@@ -487,7 +487,7 @@ char * formatLex (TLex * _lexData)
 					obj[indice] = 'N';
 					break;
 				case 12 :
-					obj[indice] = 'R';
+					obj[indice] = 'N';
 					break;
 				default:
 					break;
