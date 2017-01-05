@@ -35,6 +35,8 @@
 typedef struct{
 	char * data; /**< chaine a parcourir */
 	char * startPos; /**< position de depart pour la prochaine analyse */
+	char * symOk /**< contient l'alphabet et les symboles auxilieres reconnus */
+	int seqOk /**< nombre de caractère reconnu par l'analyseur */
 	int nbSymboles; /**< taille du tableau tableSymboles */
 } TSynt;
 

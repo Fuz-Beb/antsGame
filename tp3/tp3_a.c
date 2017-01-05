@@ -36,9 +36,18 @@ TSynt * initSyntData(char * _data)
 		exit(EXIT_FAILURE);
 	}
 
+	char * _syntData->symOk = (char*) malloc (sizeof(char));
+
+	if (_syntData->symOk == NULL)
+	{
+		printf("ERREUR : ALLOCATION DYNAMIQUE IMPOSSIBLE DE _syntData->symOk");
+		exit(EXIT_FAILURE);
+	}
+
 	_syntData->data = strndup(_data, strlen(_data));
     _syntData->startPos = strndup(_data, strlen(_data));
 	_syntData->nbSymboles = 0;
+	_syntData->seqOk = 0;
 
 	return _syntData;
 }
@@ -72,10 +81,101 @@ void synt(TSynt * _syntData, TIntPile * pile)
 
 	while (nbSymboles > 0)
 	{
+		while (isSep(_syntData->startPos[0]))
+        	_syntData->startPos = subString(_syntData, 1);
+
 		etape = sommetInt(pile);
+
+		switch (etape) {
+
+			case 0:
+				switch (_syntData->startPos[0]) {
+					case "{":
+						deplacement(_syntData, pile, 2);
+						break;
+				}
+			case 1:
+				switch (_syntData->startPos[0]) {
+					case "#":
+						printf("-- ACCEPTER -- ");
+						break;
+				}
+			case 2:
+				switch (_syntData->startPos[0]) {
+					case "}":
+						deplacement(_syntData, pile, 5);
+						break;
+					case "S":
+						deplacement(_syntData, pile, 6);
+						break;
+				}
+			case 3:
+				switch (_syntData->startPos[0]) {
+					case "}":
+						deplacement(_syntData, pile, 7);
+						break;
+				}
+			case 4:
+				switch (_syntData->startPos[0]) {
+					case "}":
+						reduction(_syntData, pile, 3);
+						break;
+				}
+
+
+
+
+				break;
+			default:
+				break;
+		}
 	}
 }
 
+/**
+ * \fn void deplacement(TSynt * _syntData, TIntPile * pile, int numEtat)
+ * \brief fonction qui place le numéro d'un état dans la pile
+ *
+ * \param _syntData donnees de suivi de l'analyse syntaxique
+ * \param pile donnees de suivi de la pile
+ * \param numEtat numero de l'état concerne
+ * \return neant
+*/
+void deplacement(TSynt * _syntData, TIntPile * pile, int numEtat){
+
+	empilerInt(numEtat);
+	_syntData->seqOk += 1;
+	_syntData->symOk = realloc (_syntData->symOk, (sizeof(char) * _syntData->seqOk) + 1)
+	_syntData->symOk[_syntData->seqOk - 1] = _syntData[]
+}
+
+
+/**
+ * \fn void reduction(TSynt * _syntData, TIntPile * pile, int numEtat){
+ * \brief fonction qui effectue l'analyse syntaxique
+ *
+ * \param _syntData donnees de suivi de l'analyse syntaxique
+ * \return neant
+*/
+void reduction(TSynt * _syntData, TIntPile * pile, int numEtat){
+	
+	- Regarde la règle qui correspond à l action
+	- Récupère le symbole auxilière de la regle correspondante
+	- appeler une fonction goTo qui renvoi le numero a ajouter a la pile
+}
+
+/**
+ * \fn void synt(TSynt * _syntData)
+ * \brief fonction qui effectue l'analyse syntaxique
+ *
+ * \param _syntData donnees de suivi de l'analyse syntaxique
+ * \return neant
+*/
+void goTo(TIntPile * pile, int numEtat){
+
+	empilerInt(numEtat);
+	_syntData->startPos = subString(_syntData, 1);
+}
 
 
 /**
