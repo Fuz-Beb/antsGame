@@ -1,4 +1,3 @@
-
 /**
  * \file tp2_a.c
  * \brief analyseur lexical pour le langage JSON
@@ -26,10 +25,6 @@
 #define JSON_STRING 10 /**<entite lexicale chaine de caracteres */
 #define JSON_INT_NUMBER 11 /**< entite lexicale nombre entier */
 #define JSON_REAL_NUMBER 12 /**< entite lexicale nombre reel */
-
-
-
-
 
 /**
  * \struct TSynt
@@ -72,10 +67,6 @@ void deleteSyntData(TSynt ** _syntData);
  * \return neant
 */
 void synt(TSynt * _syntData, TIntPile * pile);
-<<<<<<< HEAD
-
-#endif
-=======
 
 /**
  * \fn void deplacement(TSynt * _syntData, TIntPile * pile, int numEtat)
@@ -110,4 +101,3 @@ void reduction(TSynt * _syntData, TIntPile * pile, int numEtat);
 */
 int goTo(TSynt * _syntData, TIntPile * pile);
 #endif
->>>>>>> 854f3c9f7e4dbe5d298e5bec17a1e3bc789b99c8
