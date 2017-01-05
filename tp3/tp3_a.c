@@ -619,7 +619,7 @@ int main(int argc, char *argv[], char * file)
 			printf("Erreur avec l'ouverture du fichier !");
 	}
 
-	fgets(fichierChaine, 2, fichier);
+	/*fgets(fichierChaine, 2, fichier);*/
 
 
 
