@@ -15,16 +15,11 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "pile.h"
-<<<<<<< HEAD
 #include "tp3_a.h"
 #include "tp2_a.h"
-=======
-#include "tp2_a.h"
-#include "tp3_a.h"
 
 const char GRAMMAIRE_LETTRE[17] = {'S', 'O', 'O', 'M', 'M', 'P', 'A', 'A', 'E', 'E', 'V', 'V', 'V', 'V', 'V', 'V', 'V'};
 const int GRAMMAIRE_NBR_LETTRE[17] = {1, 2, 3, 1, 3, 3, 2, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1};
->>>>>>> 854f3c9f7e4dbe5d298e5bec17a1e3bc789b99c8
 
 /**
  * \fn TSynt * initSyntData(char * _data)
@@ -58,7 +53,7 @@ TSynt * initSyntData(char * _data)
     _syntData->startPos = strndup(_data, strlen(_data));
     _syntData->startPos[_syntData->nbSymboles] = '#';
     _syntData->startPos[_syntData->nbSymboles + 1] = '\0';
-	
+
 	_syntData->seqOk = 0;
 
 	return _syntData;
@@ -502,7 +497,7 @@ void reduction(TSynt * _syntData, TIntPile * pile, int numEtat){
 	while (nbr_symb_pile != 0){
 
 		depilerInt(pile);
-		nbr_symb_pile--;	
+		nbr_symb_pile--;
 	}
 
 	nbr_symb_pile = _syntData->seqOk;
@@ -597,7 +592,7 @@ int goTo(TSynt * _syntData, TIntPile * pile){
 				case 'V':
 					return 21;
 					break;
-				}	
+				}
 	}
 }
 
@@ -613,7 +608,8 @@ int main(int argc, char *argv[], char * file)
 	char * test;
 	char * obj;
 	char fichierChaine[1024];
-
+	TLex * lex_data;
+	TIntPile * pile;
 	FILE* fichier = NULL;
 
 	fichier = fopen(file, "r");
@@ -623,12 +619,13 @@ int main(int argc, char *argv[], char * file)
 			printf("Erreur avec l'ouverture du fichier !");
 	}
 
-	fgets(fichierChaine, 1024, fichier);
+	fgets(fichierChaine, 2, fichier);
 
-	TLex * lex_data;
-	TIntPile * pile;
 
-	test = strdup("test");
+
+	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
+	test = strdup("{ \"test\" : 3.14, \"a\" : 1 , \"b\" : 2 , \"c\" : 3 }");
+
 
 	printf("\n-- CHAINE DE DEPART -- \n\n%s",test);
 	printf("\n");
