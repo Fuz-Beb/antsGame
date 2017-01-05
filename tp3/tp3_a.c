@@ -14,9 +14,9 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "tp2_a.h"
-#include "tp3_a.h"
 #include "pile.h"
+#include "tp3_a.h"
+#include "tp2_a.h"
 
 /**
  * \fn TSynt * initSyntData(char * _data)
@@ -82,16 +82,29 @@ void synt(TSynt * _syntData, TIntPile * pile)
  * \fn int main()
  * \brief fonction principale
  */
-int main() {
-
+int main(int argc, char *argv[], char * file)
+{
 	// ANALYSE LEXICAL //
 
 	char * test;
 	char * obj;
+	char fichierChaine[1024];
+
+	FILE* fichier = NULL;
+
+	fichier = fopen(file, "r");
+
+	if(fichier == NULL)
+	{
+			printf("Erreur avec l'ouverture du fichier !");
+	}
+
+	fgets(fichierChaine, 1024, fichier);
+
 	TLex * lex_data;
 	TIntPile * pile;
 
-	test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");
+	test = strdup("test");
 
 	printf("\n-- CHAINE DE DEPART -- \n\n%s",test);
 	printf("\n");
@@ -106,7 +119,7 @@ int main() {
 
 	printf("\n -- Affichage de la chaine formatée par l'analyseur lexical -- \n\n");
 	printf("%s\n\n", obj);
-	
+
 	free(test);
 
 	// ANALYSE SYNTAXIQUE //

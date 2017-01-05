@@ -66,6 +66,6 @@ void deleteSyntData(TSynt ** _syntData);
  * \param _syntData donnees de suivi de l'analyse syntaxique
  * \return neant
 */
-void synt(TSynt * _syntData)
+void synt(TSynt * _syntData, TIntPile * pile);
 
 #endif
