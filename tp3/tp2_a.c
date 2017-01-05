@@ -28,8 +28,8 @@
  */
 char * subString(TLex * lex_data, int nbCaracteres)
 {
-	char buffer[2048];
-	memset(buffer, '\0', 2048);
+	char buffer[30000];
+	memset(buffer, '\0', 30000);
 	strncpy(buffer, lex_data->startPos + nbCaracteres, strlen(lex_data->startPos) - nbCaracteres);
 	free(lex_data->startPos);
 	lex_data->startPos = strndup(buffer, strlen(buffer) + 1);
@@ -46,7 +46,7 @@ char * subString(TLex * lex_data, int nbCaracteres)
  */
 int isSep(const char _symb)
 {
-	if (_symb == ' ')
+	if (_symb == ' ' || _symb == '	' || _symb == '\n')
 		return 1;
 	else
 		return 0;
@@ -235,8 +235,8 @@ void addStringSymbolToLexData(TLex * _lexData, char * _val)
 int lex(TLex * _lexData)
 {
 	int i = 1, size = 0, temp = 0;
-	char buffer[2048];
-	memset(buffer, '\0', 2048);
+	char buffer[30000];
+	memset(buffer, '\0', 30000);
 
 	while (_lexData->startPos[0] == '\n')
 	{
@@ -272,7 +272,7 @@ int lex(TLex * _lexData)
 			{
 				strncpy(buffer, _lexData->startPos, 4);
 				addStringSymbolToLexData(_lexData, buffer);
-				_lexData->startPos = subString(_lexData, 3);
+				_lexData->startPos = subString(_lexData, 4);
 				return JSON_NULL;
 			}
 		case '{' :
@@ -493,6 +493,7 @@ char * formatLex (TLex * _lexData)
 					break;
 			}
 		}
+
 		obj[nbrObj - 1] = '\0';
 
 		printf("lex()=%d\n",i);

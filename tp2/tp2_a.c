@@ -272,7 +272,7 @@ int lex(TLex * _lexData)
 			{
 				strncpy(buffer, _lexData->startPos, 4);
 				addStringSymbolToLexData(_lexData, buffer);
-				_lexData->startPos = subString(_lexData, 3);
+				_lexData->startPos = subString(_lexData, 4);
 				return JSON_NULL;
 			}
 		case '{' :
@@ -489,6 +489,8 @@ char * formatLex (TLex * _lexData)
 					break;
 			}
 		}
+		else
+			printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n", );
 
 		printf("lex()=%d\n",i);
 

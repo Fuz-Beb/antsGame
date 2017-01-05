@@ -711,7 +711,8 @@ int main(int argc, char *argv[])
 
 	char * test;
 	char * obj;
-	char fichierChaine[3000];
+	/*char fichierChaine[3000];*/
+	char * fichierChaine;
 	TLex * lex_data;
 	TIntPile * pile;
 	FILE* fichier = NULL;
@@ -728,7 +729,16 @@ int main(int argc, char *argv[])
 	tailleFichier = ftell(fichier);
 	rewind(fichier);
 
-	fgets(fichierChaine, tailleFichier, fichier);
+	fichierChaine = (char*)malloc(sizeof(char) * tailleFichier);
+
+	printf("\n\n\n\n\n--------------------");
+
+	/*fgets(fichierChaine, tailleFichier, fichier);*/
+	fread(fichierChaine, (size_t)tailleFichier, 1, fichier);
+
+	printf("Caractere : %s.", fichierChaine);
+
+	printf("\n\n\n\n\n--------------------");
 
 	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
 	/*test = strdup("{ \"test\" : 3.14, \"a\" : 1 , \"b\" : 2 , \"c\" : 3 }");*/
