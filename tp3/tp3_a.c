@@ -718,6 +718,13 @@ int main(int argc, char *argv[])
 	FILE* fichier = NULL;
 	long tailleFichier = 0;
 
+	if (argv[1] == NULL)
+	{
+		printf("Aucun argument fourni ! \n");
+		exit(EXIT_FAILURE);
+	}
+
+
 	fichier = fopen(argv[1], "r");
 
 	if(fichier == NULL)
