@@ -51,6 +51,9 @@ TSynt * initSyntData(char * _data)
 
 	_syntData->data = strndup(_data, strlen(_data));
     _syntData->startPos = strndup(_data, strlen(_data));
+
+		/*_syntData->startPos = realloc(_syntData->nbSymboles, strlen(_syntData->startPos + 2));*/
+
     _syntData->startPos[_syntData->nbSymboles] = '#';
     _syntData->startPos[_syntData->nbSymboles + 1] = '\0';
 
@@ -86,11 +89,20 @@ void deleteSyntData(TSynt ** _syntData)
  */
 char * subStringSynt(TSynt * _syntData, int nbCaracteres)
 {
-	char buffer[2048];
-	memset(buffer, '\0', 2048);
+
+	char * buffer = (char*)malloc(sizeof(char) * strlen(_syntData->startPos));
+
+	if (buffer == NULL)
+	{
+		printf("ERREUR : ALLOCATION DYNAMIQUE IMPOSSIBLE DE buffer");
+		exit(EXIT_FAILURE);
+	}
+
 	strncpy(buffer, _syntData->startPos + nbCaracteres, strlen(_syntData->startPos) - nbCaracteres);
 	free(_syntData->startPos);
-	_syntData->startPos = strndup(buffer, strlen(buffer) + 1);
+	printf("BUFFER TEST : %s\n", buffer);
+	_syntData->startPos = strndup(buffer, strlen(buffer));
+	free(buffer);
 	return _syntData->startPos;
 }
 
@@ -104,7 +116,6 @@ char * subStringSynt(TSynt * _syntData, int nbCaracteres)
 */
 void synt(TSynt * _syntData, TIntPile * pile)
 {
-	int etape = 0;
 
 	while (1)
 	{
@@ -576,6 +587,7 @@ void deplacement(TSynt * _syntData, TIntPile * pile, int numEtat){
 	_syntData->symOk[_syntData->seqOk - 1] = _syntData->startPos[0];
 	_syntData->symOk[_syntData->seqOk] = '\0';
 	printf("symOk : %s\n", _syntData->symOk);
+
 	_syntData->startPos = subStringSynt(_syntData, 1);
 }
 
@@ -730,6 +742,7 @@ int main(int argc, char *argv[])
 	if(fichier == NULL)
 	{
 			printf("Erreur avec l'ouverture du fichier !");
+			exit(EXIT_FAILURE);
 	}
 
 	fseek(fichier, 0, SEEK_END);
@@ -737,6 +750,12 @@ int main(int argc, char *argv[])
 	rewind(fichier);
 
 	fichierChaine = (char*)malloc(sizeof(char) * tailleFichier);
+
+	if (fichierChaine == NULL)
+	{
+		printf("ERREUR : ALLOCATION DYNAMIQUE IMPOSSIBLE DE fichierChaine");
+		exit(EXIT_FAILURE);
+	}
 
 	printf("\n\n\n\n\n--------------------");
 
