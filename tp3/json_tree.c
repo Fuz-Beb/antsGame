@@ -511,8 +511,3 @@ char * PrintJsonPair(const JsonPair * _pair) {
     free(chaine);
     return resultat;
 }
-
-
-
-
-
