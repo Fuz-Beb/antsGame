@@ -52,12 +52,11 @@ TSynt * initSyntData(char * _data)
 	_syntData->nbSymboles = strlen(_data);
 
 	_syntData->data = strndup(_data, strlen(_data));
-    _syntData->startPos = strndup(_data, strlen(_data));
+  _syntData->startPos = strndup(_data, strlen(_data));
 
-		/*_syntData->startPos = realloc(_syntData->nbSymboles, strlen(_syntData->startPos + 2));*/
+	/*_syntData->startPos = realloc(_syntData->nbSymboles, strlen(_syntData->startPos + 2));*/
 
-    _syntData->startPos[_syntData->nbSymboles] = '#';
-    _syntData->startPos[_syntData->nbSymboles + 1] = '\0';
+  _syntData->startPos[_syntData->nbSymboles] = '#';
 
 	_syntData->seqOk = 0;
 
@@ -597,7 +596,6 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, in
 	_syntData->symOk[_syntData->seqOk] = '\0';
 	printf("symOk : %s\n", _syntData->symOk);
 
-	free(_syntData->startPos);
 	_syntData->startPos = subStringSynt(_syntData, 1);
 }
 
@@ -782,7 +780,7 @@ int main(int argc, char *argv[])
 	tailleFichier = ftell(fichier);
 	rewind(fichier);
 
-	fichierChaine = (char*)malloc(sizeof(char) * tailleFichier);
+	fichierChaine = (char*)malloc(tailleFichier + 1);
 
 	if (fichierChaine == NULL)
 	{
@@ -797,7 +795,8 @@ int main(int argc, char *argv[])
 
 	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
 	/*test = strdup("{ \"test\" : 3.14, \"a\" : 1 , \"b\" : 2 , \"c\" : 3 }");*/
-	test = strdup(fichierChaine);
+
+	test = strndup(fichierChaine, strlen(fichierChaine));
 
 	fclose(fichier);
 
