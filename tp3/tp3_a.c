@@ -92,20 +92,16 @@ void deleteSyntData(TSynt ** _syntData)
 char * subStringSynt(TSynt * _syntData, int nbCaracteres)
 {
 
-	char * buffer = (char*)malloc(sizeof(char) * strlen(_syntData->startPos));
+	_syntData->startPos = strndup(_syntData->startPos + nbCaracteres, strlen(_syntData->startPos));
 
-	if (buffer == NULL)
+	if (_syntData->startPos == NULL)
 	{
-		printf("ERREUR : ALLOCATION DYNAMIQUE IMPOSSIBLE DE buffer");
+		printf("ERREUR : ALLOCATION DYNAMIQUE IMPOSSIBLE DE _syntData->startPos");
 		exit(EXIT_FAILURE);
 	}
 
-	strncpy(buffer, _syntData->startPos + nbCaracteres, strlen(_syntData->startPos) - nbCaracteres);
-	free(_syntData->startPos);
-	printf("BUFFER TEST : %s\n", buffer);
-	_syntData->startPos = strndup(buffer, strlen(buffer));
-	free(buffer);
 	return _syntData->startPos;
+
 }
 
 
@@ -583,7 +579,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int numEtat){
 
 	printf("\nUN PASSAGE DEPLACEMENT !\nNum état : %d\n", numEtat);
-	
+
 	// Gestion pile INT
 	empilerInt(pileInt, numEtat);
 	printf("PILE INT : ");
@@ -601,6 +597,7 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, in
 	_syntData->symOk[_syntData->seqOk] = '\0';
 	printf("symOk : %s\n", _syntData->symOk);
 
+	free(_syntData->startPos);
 	_syntData->startPos = subStringSynt(_syntData, 1);
 }
 
