@@ -88,7 +88,7 @@ void deleteSyntData(TSynt ** _syntData)
 char * subStringSynt(TSynt * _syntData, int nbCaracteres)
 {
 
-	_syntData->startPos = strndup(_syntData->startPos + nbCaracteres, strlen(_syntData->startPos));
+	_syntData->startPos = strndup(_syntData->startPos + nbCaracteres, strlen(_syntData->startPos) - nbCaracteres);
 
 	if (_syntData->startPos == NULL)
 	{
