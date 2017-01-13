@@ -87,14 +87,18 @@ void deleteSyntData(TSynt ** _syntData)
  */
 char * subStringSynt(TSynt * _syntData, int nbCaracteres)
 {
+	char * temp = (char*) malloc(sizeof(char) * strlen(_syntData->startPos) + 1);
+	temp = strcpy(temp, _syntData->startPos);
+	free(_syntData->startPos);
 
-	_syntData->startPos = strndup(_syntData->startPos + nbCaracteres, strlen(_syntData->startPos) - nbCaracteres);
+	_syntData->startPos = strdup(temp + nbCaracteres);
 
 	if (_syntData->startPos == NULL)
 	{
 		printf("ERREUR : ALLOCATION DYNAMIQUE IMPOSSIBLE DE _syntData->startPos");
 		exit(EXIT_FAILURE);
 	}
+	free(temp);
 
 	return _syntData->startPos;
 
@@ -726,11 +730,9 @@ int main(int argc, char *argv[])
 
 	char * test;
 	char * obj;
-	/*char fichierChaine[3000];*/
 	char * fichierChaine;
 	TLex * lex_data;
 	TIntPile * pileInt;
-	TVoidPile * pileVoid;
 	FILE* fichier = NULL;
 	long tailleFichier = 0;
 
