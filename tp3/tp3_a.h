@@ -68,7 +68,7 @@ void deleteSyntData(TSynt ** _syntData);
  * \param pileVoid donnees de suivi de la pile VOID
  * \return neant
 */
-void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid);
+void synt(TSynt * _syntData, TIntPile * pileInt);
 
 /**
  * \fn void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int numEtat)
@@ -80,7 +80,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid);
  * \param numEtat numero de l'état concerne
  * \return neant
 */
-void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int numEtat);
+void deplacement(TSynt * _syntData, TIntPile * pileInt, int numEtat);
 
 
 /**
@@ -93,18 +93,7 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, in
  * \param numEtat numero de l'état concerne
  * \return neant
 */
-void reduction(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int numEtat);
-
-
-/**
- * \fn void gestion_arbre(TSynt * _syntData, TVoidPile * pileVoid)
- * \brief fonction qui construit l'arbre
- *
- * \param _syntData donnees de suivi de l'analyse syntaxique
- * \param pileVoid donnees de suivi de la pile VOID
- * \return neant
-*/
-void gestion_arbre(TSynt * _syntData, TVoidPile * pileVoid);
+void reduction(TSynt * _syntData, TIntPile * pileInt, int numEtat);
 
 
 /**

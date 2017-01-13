@@ -1,0 +1,78 @@
+Si n==1 Alors /* règle O -> { } */
+Créer un objet JSon vide et l’empiler sur PileJSon
+
+Sinon Si n==2 Alors /* règle O -> { M } */
+/* il n’y a rien à faire car l’objet M est déjà sur la pile */
+
+Sinon Si n==3 Alors /* règle M -> P */
+P = dépiler de la PileJSon
+Créer un objet Json, y insérer la paire P, et l’empiler sur PileJSon
+
+Sinon Si n==4 Alors /* M -> P , M */
+O = dépiler de la PileJSon
+P = dépiler de la PileJSon
+Insérer la paire P dans l’objet O et empiler O sur PileJSon
+
+Sinon Si n==5 Alors /* règle P -> s : V */
+Créer une paire P
+C = dépiler le conteneur de Valeur de la PileJSon
+s = dernierSymbole lu par l’analyseur syntaxique (chaine)
+insérer s dans P
+empiler P sur PileJSon
+
+Sinon Si n==6 Alors /* règle A -> [] */
+Créer un array JSON vide et l'empiler sur PileJSON
+
+Sinon Si n==7 Alors /* règle A -> [E] */
+/* il n’y a rien à faire car l'array E est déjà sur la pile */
+
+Sinon Si n==8 Alors /* règle E -> V */
+C = dépiler le conteneur de Valeur de la PileJSon
+Créer un array Json, y insérer le conteneur C, et l’empiler sur PileJSon
+
+Sinon Si n==9 Alors /* règle E -> V,E */
+A = dépiler l'array de la PileJSon
+V = dépiler de la PileJSon
+Insérer le conteneur V dans l’array A et empiler A sur PileJSon
+
+Sinon Si n==10 Alors /* règle V -> S */
+s = récupérer le dernier symbole
+Créer un conteneur mettre S
+Insérer ce conteneur dans l'array
+Empiler l'array
+
+Sinon Si n==11 Alors /* règle V -> N */
+n = récupérer le dernier symbole
+Créer un conteneur mettre n
+Insérer ce conteneur dans l'array
+Empiler l'array
+
+Sinon Si n==12 Alors /* règle V -> O */
+o = récupérer le dernier symbole
+Créer un conteneur mettre o
+Insérer ce conteneur dans l'array
+Empiler l'array
+
+Sinon Si n==13 Alors /* règle V -> A */
+A = récupérer le dernier symbole
+Créer un conteneur mettre A
+Insérer ce conteneur dans l'array
+Empiler l'array
+
+Sinon Si n==14 Alors /* règle V -> T */
+T = récupérer le dernier symbole
+Créer un conteneur mettre T
+Insérer ce conteneur dans l'array
+Empiler l'array
+
+Sinon Si n==15 Alors /* règle V -> F */
+F = récupérer le dernier symbole
+Créer un conteneur mettre F
+Insérer ce conteneur dans l'array
+Empiler l'array
+
+Sinon Si n==16 Alors /* règle V -> U */
+U = récupérer le dernier symbole
+Créer un conteneur mettre U
+Insérer ce conteneur dans l'array
+Empiler l'array

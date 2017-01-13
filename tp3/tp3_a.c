@@ -105,7 +105,7 @@ char * subStringSynt(TSynt * _syntData, int nbCaracteres)
 
 
 /**
- * \fn void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
+ * \fn void synt(TSynt * _syntData, TIntPile * pileInt)
  * \brief fonction qui effectue l'analyse syntaxique
  *
  * \param _syntData donnees de suivi de l'analyse syntaxique
@@ -113,7 +113,7 @@ char * subStringSynt(TSynt * _syntData, int nbCaracteres)
  * \param pileVoid donnees de suivi de la pile VOID
  * \return neant
 */
-void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
+void synt(TSynt * _syntData, TIntPile * pileInt)
 {
 
 	while (1)
@@ -128,7 +128,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 0:
 				switch (_syntData->startPos[0]) {
 					case '{':
-						deplacement(_syntData, pileInt, pileVoid, 2);
+						deplacement(_syntData, pileInt, 2);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -151,10 +151,10 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 2:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						deplacement(_syntData, pileInt, pileVoid, 5);
+						deplacement(_syntData, pileInt, 5);
 						break;
 					case 'S':
-						deplacement(_syntData, pileInt, pileVoid, 6);
+						deplacement(_syntData, pileInt, 6);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -165,7 +165,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 3:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						deplacement(_syntData, pileInt, pileVoid, 7);
+						deplacement(_syntData, pileInt, 7);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -176,10 +176,10 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 4:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 3);
+						reduction(_syntData, pileInt, 3);
 						break;
 					case ',':
-						deplacement(_syntData, pileInt, pileVoid, 8);
+						deplacement(_syntData, pileInt, 8);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -190,16 +190,16 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 5:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 1);
+						reduction(_syntData, pileInt, 1);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 1);
+						reduction(_syntData, pileInt, 1);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 1);
+						reduction(_syntData, pileInt, 1);
 						break;
 					case '#':
-						reduction(_syntData, pileInt, pileVoid, 1);
+						reduction(_syntData, pileInt, 1);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -210,7 +210,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 6:
 				switch (_syntData->startPos[0]) {
 					case ':':
-						deplacement(_syntData, pileInt, pileVoid, 9);
+						deplacement(_syntData, pileInt, 9);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -221,16 +221,16 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 7:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 2);
+						reduction(_syntData, pileInt, 2);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 2);
+						reduction(_syntData, pileInt, 2);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 2);
+						reduction(_syntData, pileInt, 2);
 						break;
 					case '#':
-						reduction(_syntData, pileInt, pileVoid, 2);
+						reduction(_syntData, pileInt, 2);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -241,7 +241,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 8:
 				switch (_syntData->startPos[0]) {
 					case 'S':
-						deplacement(_syntData, pileInt, pileVoid, 6);
+						deplacement(_syntData, pileInt, 6);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -252,25 +252,25 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 9:
 				switch (_syntData->startPos[0]) {
 					case '{':
-						deplacement(_syntData, pileInt, pileVoid, 2);
+						deplacement(_syntData, pileInt, 2);
 						break;
 					case '[':
-						deplacement(_syntData, pileInt, pileVoid, 14);
+						deplacement(_syntData, pileInt, 14);
 						break;
 					case 'S':
-						deplacement(_syntData, pileInt, pileVoid, 15);
+						deplacement(_syntData, pileInt, 15);
 						break;
 					case 'N':
-						deplacement(_syntData, pileInt, pileVoid, 16);
+						deplacement(_syntData, pileInt, 16);
 						break;
 					case 'T':
-						deplacement(_syntData, pileInt, pileVoid, 17);
+						deplacement(_syntData, pileInt, 17);
 						break;
 					case 'F':
-						deplacement(_syntData, pileInt, pileVoid, 18);
+						deplacement(_syntData, pileInt, 18);
 						break;
 					case 'U':
-						deplacement(_syntData, pileInt, pileVoid, 19);
+						deplacement(_syntData, pileInt, 19);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -281,7 +281,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 10:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 4);
+						reduction(_syntData, pileInt, 4);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -292,13 +292,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 11:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 12);
+						reduction(_syntData, pileInt, 12);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 12);
+						reduction(_syntData, pileInt, 12);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 12);
+						reduction(_syntData, pileInt, 12);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -309,13 +309,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 12:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 13);
+						reduction(_syntData, pileInt, 13);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 13);
+						reduction(_syntData, pileInt, 13);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 13);
+						reduction(_syntData, pileInt, 13);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -326,10 +326,10 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 13:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 5);
+						reduction(_syntData, pileInt, 5);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 5);
+						reduction(_syntData, pileInt, 5);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -340,28 +340,28 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 14:
 				switch (_syntData->startPos[0]) {
 					case '{':
-						deplacement(_syntData, pileInt, pileVoid, 2);
+						deplacement(_syntData, pileInt, 2);
 						break;
 					case '[':
-						deplacement(_syntData, pileInt, pileVoid, 14);
+						deplacement(_syntData, pileInt, 14);
 						break;
 					case ']':
-						deplacement(_syntData, pileInt, pileVoid, 22);
+						deplacement(_syntData, pileInt, 22);
 						break;
 					case 'S':
-						deplacement(_syntData, pileInt, pileVoid, 15);
+						deplacement(_syntData, pileInt, 15);
 						break;
 					case 'N':
-						deplacement(_syntData, pileInt, pileVoid, 16);
+						deplacement(_syntData, pileInt, 16);
 						break;
 					case 'T':
-						deplacement(_syntData, pileInt, pileVoid, 17);
+						deplacement(_syntData, pileInt, 17);
 						break;
 					case 'F':
-						deplacement(_syntData, pileInt, pileVoid, 18);
+						deplacement(_syntData, pileInt, 18);
 						break;
 					case 'U':
-						deplacement(_syntData, pileInt, pileVoid, 19);
+						deplacement(_syntData, pileInt, 19);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -372,13 +372,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 15:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 10);
+						reduction(_syntData, pileInt, 10);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 10);
+						reduction(_syntData, pileInt, 10);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 10);
+						reduction(_syntData, pileInt, 10);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -389,13 +389,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 16:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 11);
+						reduction(_syntData, pileInt, 11);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 11);
+						reduction(_syntData, pileInt, 11);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 11);
+						reduction(_syntData, pileInt, 11);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -406,13 +406,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 17:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 14);
+						reduction(_syntData, pileInt, 14);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 14);
+						reduction(_syntData, pileInt, 14);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 14);
+						reduction(_syntData, pileInt, 14);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -423,13 +423,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 18:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 15);
+						reduction(_syntData, pileInt, 15);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 15);
+						reduction(_syntData, pileInt, 15);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 15);
+						reduction(_syntData, pileInt, 15);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -440,13 +440,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 19:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 16);
+						reduction(_syntData, pileInt, 16);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 16);
+						reduction(_syntData, pileInt, 16);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 16);
+						reduction(_syntData, pileInt, 16);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -457,7 +457,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 20:
 				switch (_syntData->startPos[0]) {
 					case ']':
-						deplacement(_syntData, pileInt, pileVoid, 23);
+						deplacement(_syntData, pileInt, 23);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -468,10 +468,10 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 21:
 				switch (_syntData->startPos[0]) {
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 8);
+						reduction(_syntData, pileInt, 8);
 						break;
 					case ',':
-						deplacement(_syntData, pileInt, pileVoid, 24);
+						deplacement(_syntData, pileInt, 24);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -482,13 +482,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 22:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 6);
+						reduction(_syntData, pileInt, 6);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 6);
+						reduction(_syntData, pileInt, 6);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 6);
+						reduction(_syntData, pileInt, 6);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -499,13 +499,13 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 23:
 				switch (_syntData->startPos[0]) {
 					case '}':
-						reduction(_syntData, pileInt, pileVoid, 7);
+						reduction(_syntData, pileInt, 7);
 						break;
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 7);
+						reduction(_syntData, pileInt, 7);
 						break;
 					case ',':
-						reduction(_syntData, pileInt, pileVoid, 7);
+						reduction(_syntData, pileInt, 7);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -516,28 +516,28 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 24:
 				switch (_syntData->startPos[0]) {
 					case '{':
-						deplacement(_syntData, pileInt, pileVoid, 2);
+						deplacement(_syntData, pileInt, 2);
 						break;
 					case '[':
-						deplacement(_syntData, pileInt, pileVoid, 14);
+						deplacement(_syntData, pileInt, 14);
 						break;
 					case ']':
-						deplacement(_syntData, pileInt, pileVoid, 22);
+						deplacement(_syntData, pileInt, 22);
 						break;
 					case 'S':
-						deplacement(_syntData, pileInt, pileVoid, 15);
+						deplacement(_syntData, pileInt, 15);
 						break;
 					case 'N':
-						deplacement(_syntData, pileInt, pileVoid, 16);
+						deplacement(_syntData, pileInt, 16);
 						break;
 					case 'T':
-						deplacement(_syntData, pileInt, pileVoid, 17);
+						deplacement(_syntData, pileInt, 17);
 						break;
 					case 'F':
-						deplacement(_syntData, pileInt, pileVoid, 18);
+						deplacement(_syntData, pileInt, 18);
 						break;
 					case 'U':
-						deplacement(_syntData, pileInt, pileVoid, 19);
+						deplacement(_syntData, pileInt, 19);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -548,7 +548,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
 			case 25:
 				switch (_syntData->startPos[0]) {
 					case ']':
-						reduction(_syntData, pileInt, pileVoid, 9);
+						reduction(_syntData, pileInt, 9);
 						break;
 					default :
 						printf("Element non reconnu !!! ");
@@ -575,7 +575,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
  * \param numEtat numero de l'état concerne
  * \return neant
 */
-void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int numEtat){
+void deplacement(TSynt * _syntData, TIntPile * pileInt, int numEtat){
 
 	printf("\nUN PASSAGE DEPLACEMENT !\nNum état : %d\n", numEtat);
 
@@ -583,11 +583,6 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, in
 	empilerInt(pileInt, numEtat);
 	printf("PILE INT : ");
 	printIntPile(pileInt);
-
-	// Gestion pile VOID
-	empilerVoid(pileVoid, &_syntData->startPos[0]);
-	printf("PILE VOID : ");
-	printVoidPile(pileVoid);
 
 	_syntData->seqOk += 1;
 	printf("seqOk : %d\n", _syntData->seqOk);
@@ -610,7 +605,7 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, in
  * \param numEtat numero de l'état concerne
  * \return neant
 */
-void reduction(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int numEtat){
+void reduction(TSynt * _syntData, TIntPile * pileInt, int numEtat){
 	printf("\nUN PASSAGE REDUCTION\n");
 	int nbr_symb_pile = GRAMMAIRE_NBR_LETTRE[numEtat];
 
@@ -637,26 +632,7 @@ void reduction(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int 
 	empilerInt(pileInt, valeur);
 	printf("NOUVELLE PILE : ");
 	printIntPile(pileInt);
-
-	gestion_arbre(_syntData, pileVoid);
 }
-
-
-/**
- * \fn void gestion_arbre(TSynt * _syntData, TVoidPile * pileVoid)
- * \brief fonction qui construit l'arbre
- *
- * \param _syntData donnees de suivi de l'analyse syntaxique
- * \param pileVoid donnees de suivi de la pile VOID
- * \return neant
-*/
-void gestion_arbre(TSynt * _syntData, TVoidPile * pileVoid)
-{
-
-}
-
-
-
 
 
 /**
@@ -816,16 +792,14 @@ int main(int argc, char *argv[])
 	free(test);
 
 	// ANALYSE SYNTAXIQUE //
-
 	TSynt * synt_data;
 	synt_data = initSyntData(obj);
 	pileInt = initIntPile();
 	pileVoid = initVoidPile();
 
-	synt(synt_data, pileInt, pileVoid);
+	synt(synt_data, pileInt);
 
 	deleteIntPile(&pileInt);
-	deleteVoidPile(&pileVoid);
 	deleteSyntData(&synt_data);
 	free(obj);
 
