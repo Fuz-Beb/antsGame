@@ -41,7 +41,7 @@ TSynt * initSyntData(char * _data)
 		exit(EXIT_FAILURE);
 	}
 
-	_syntData->symOk = (char*) malloc (sizeof(char));
+	_syntData->symOk = (char*) malloc (sizeof(char) * 1);
 
 	if (_syntData->symOk == NULL)
 	{
@@ -51,10 +51,12 @@ TSynt * initSyntData(char * _data)
 
 	_syntData->nbSymboles = strlen(_data);
 
-	_syntData->data = strndup(_data, strlen(_data));
-  _syntData->startPos = strndup(_data, strlen(_data));
-  _syntData->startPos[_syntData->nbSymboles] = '#';
+	_syntData->startPos = (char*) malloc(sizeof(char) * (strlen(_data) + 2));
+	_syntData->startPos = strcpy(_syntData->startPos, _data);
+	_syntData->startPos[_syntData->nbSymboles] = '#';
+	_syntData->startPos[_syntData->nbSymboles + 1] = '\0';
 
+	_syntData->data = strndup(_data, strlen(_data));
 	_syntData->seqOk = 0;
 
 	return _syntData;
@@ -87,7 +89,7 @@ void deleteSyntData(TSynt ** _syntData)
  */
 char * subStringSynt(TSynt * _syntData, int nbCaracteres)
 {
-	char * temp = (char*) malloc(sizeof(char) * strlen(_syntData->startPos) + 1);
+	char * temp = (char*) malloc(sizeof(char) * (strlen(_syntData->startPos) + 1));
 	temp = strcpy(temp, _syntData->startPos);
 	free(_syntData->startPos);
 
@@ -771,7 +773,7 @@ int main(int argc, char *argv[])
 	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
 	/*test = strdup("{ \"test\" : 3.14, \"a\" : 1 , \"b\" : 2 , \"c\" : 3 }");*/
 
-	test = strndup(fichierChaine, strlen(fichierChaine));
+	test = strndup(fichierChaine, tailleFichier);
 
 	fclose(fichier);
 
