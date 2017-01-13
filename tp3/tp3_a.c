@@ -792,7 +792,6 @@ int main(int argc, char *argv[])
 	TSynt * synt_data;
 	synt_data = initSyntData(obj);
 	pileInt = initIntPile();
-	pileVoid = initVoidPile();
 
 	synt(synt_data, pileInt);
 

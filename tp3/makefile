@@ -10,4 +10,4 @@ pile.o:pile_a_completer.c
 
 test:
 	make
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./tp3 tests/test
+	valgrind --leak-check=full --track-origins=yes ./tp3 tests/test
