@@ -53,9 +53,6 @@ TSynt * initSyntData(char * _data)
 
 	_syntData->data = strndup(_data, strlen(_data));
   _syntData->startPos = strndup(_data, strlen(_data));
-
-	/*_syntData->startPos = realloc(_syntData->nbSymboles, strlen(_syntData->startPos + 2));*/
-
   _syntData->startPos[_syntData->nbSymboles] = '#';
 
 	_syntData->seqOk = 0;
