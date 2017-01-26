@@ -33,6 +33,7 @@ const int GRAMMAIRE_NBR_LETTRE[17] = {1, 2, 3, 1, 3, 3, 2, 3, 1, 3, 1, 1, 1, 1, 
  */
 TSynt * initSyntData(char * _data)
 {
+	// Allocation de la structure
 	TSynt * _syntData = (TSynt*) malloc (sizeof(TSynt));
 
 	if (_syntData == NULL)
@@ -41,6 +42,7 @@ TSynt * initSyntData(char * _data)
 		exit(EXIT_FAILURE);
 	}
 
+	// Allocation d'une chaine contenant les lettres de la grammaire qui a été reconnue
 	_syntData->symOk = (char*) malloc (sizeof(char) * 1);
 
 	if (_syntData->symOk == NULL)
@@ -51,7 +53,15 @@ TSynt * initSyntData(char * _data)
 
 	_syntData->nbSymboles = strlen(_data);
 
+	// Allocation d'une chaine contenant l'état d'avancement de l'analyseur
 	_syntData->startPos = (char*) malloc(sizeof(char) * (strlen(_data) + 2));
+
+	if (_syntData->symOk == NULL)
+	{
+		printf("ERREUR : ALLOCATION DYNAMIQUE IMPOSSIBLE DE _syntData->symOk");
+		exit(EXIT_FAILURE);
+	}
+
 	_syntData->startPos = strcpy(_syntData->startPos, _data);
 	_syntData->startPos[_syntData->nbSymboles] = '#';
 	_syntData->startPos[_syntData->nbSymboles + 1] = '\0';
@@ -90,15 +100,19 @@ void deleteSyntData(TSynt ** _syntData)
 */
 int analyseurLR(TSynt * _syntData, TIntPile * pileInt)
 {
+	// Valeur de retour
 	unsigned int returnValue = 2;
 
+	// Tant qu'une erreur ou une acception ne survient pas, je continue
 	while (returnValue == 2)
 	{
+		// Test si présence de sépérateur
 		while (isSep(_syntData->startPos[0]))
         	_syntData->startPos = str_cut(_syntData->startPos, 1);
 
 		int etape = sommetInt(pileInt);
 
+		// Application de la table SLR
 		switch (etape) {
 			case 0:
 				switch (_syntData->startPos[0]) {
@@ -527,6 +541,7 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, int numEtat){
 	// Gestion pile INT
 	empilerInt(pileInt, numEtat);
 
+	// Nous avons reconnu un caractère. Modifier des chaines de la structure TSynt
 	_syntData->seqOk += 1;
 	_syntData->symOk = realloc (_syntData->symOk, (sizeof(char) * _syntData->seqOk) + 1);
 	_syntData->symOk[_syntData->seqOk - 1] = _syntData->startPos[0];
@@ -548,10 +563,14 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, int numEtat){
 */
 void reduction(TSynt * _syntData, TIntPile * pileInt, int numEtat){
 
+	int valeur = 0;
+
+	// Récupération de nombre de lettre à dépiler de la pile
 	int nbr_symb_pile = GRAMMAIRE_NBR_LETTRE[numEtat];
 
-	while (nbr_symb_pile != 0){
-
+	// Dépiler tant que la longueur n'est pas atteinte
+	while (nbr_symb_pile != 0)
+	{
 		depilerInt(pileInt);
 		nbr_symb_pile--;
 	}
@@ -562,7 +581,8 @@ void reduction(TSynt * _syntData, TIntPile * pileInt, int numEtat){
 	_syntData->seqOk = _syntData->seqOk - GRAMMAIRE_NBR_LETTRE[numEtat] + 1;
 	_syntData->symOk[(nbr_symb_pile + 1) - GRAMMAIRE_NBR_LETTRE[numEtat]] = '\0';
 
-	int valeur = goTo(_syntData, pileInt);
+	// Appel de la table goTo pour trouver le nouvel état
+	valeur = goTo(_syntData, pileInt);
 	empilerInt(pileInt, valeur);
 }
 
@@ -658,10 +678,7 @@ int goTo(TSynt * _syntData, TIntPile * pileInt){
 int main(int argc, char *argv[])
 {
 	// ANALYSE LEXICAL //
-
-	char * test;
-	char * obj;
-	char * fichierChaine;
+	char * test, * obj, * fichierChaine;
 	TLex * lex_data;
 	TIntPile * pileInt;
 	FILE* fichier = NULL;
@@ -674,7 +691,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-
+	// Ouverture du fichier demandé par l'utilisateur
 	fichier = fopen(argv[1], "r");
 
 	if(fichier == NULL)
@@ -683,10 +700,12 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
+	// Calcul de la taille du fichier pour le malloc
 	fseek(fichier, 0, SEEK_END);
 	tailleFichier = ftell(fichier);
 	rewind(fichier);
 
+	// Le contenu du fichier sera mis dans la chaine fichierChaine
 	fichierChaine = (char*)malloc(tailleFichier + 1);
 
 	if (fichierChaine == NULL)
@@ -695,37 +714,41 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
+	// Ajout du contenu du fichier dans fichierChaine
 	fread(fichierChaine, (size_t)tailleFichier, 1, fichier);
-
 	test = strndup(fichierChaine, tailleFichier);
-
 	fclose(fichier);
 
-
+	// Initialisation de la structure pour l'analyse syntaxique
 	lex_data = initLexData(test);
 
+	// Récupére la chaine "formaté" de l'analyseur lexical
 	obj = formatLex(lex_data);
 
+	// Libération de mémoire
 	deleteLexData(&lex_data);
-
 	free(test);
 	free(fichierChaine);
+
 
 	// ANALYSE SYNTAXIQUE //
 	TSynt * synt_data;
 	synt_data = initSyntData(obj);
 	pileInt = initIntPile();
 
+	// Appel de l'analyseur LR
 	result = analyseurLR(synt_data, pileInt);
 
+	// Affichage du resultat de l'analyse
 	if (result == 1)
 		printf("\nAccepté ! \nValeur renvoyée : 1\n");
 	else
 		printf("\nRefusé ! \nValeur renvoyée : 0\n");
 
+	// Libération de la mémoire
 	deleteIntPile(&pileInt);
 	deleteSyntData(&synt_data);
 	free(obj);
-
+	
 	return 0;
 }
