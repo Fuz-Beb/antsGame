@@ -58,14 +58,14 @@ typedef struct{
 
 
 /**
- * \fn char * subString(TLex * lex_data, int nbCaracteres)
+ * \fn char * str_cut(char * startPos, int nbCaracteres)
  * \brief fonction qui rogne une chaine de caracteres
  *
  * \param lex_data donnees de suivi de l'analyse lexicale
  * \param[in] nbCaracteres le nombre de caracteres a supprimer
  * \return la nouvelle chaine de caracteres
  */
-char * subString(TLex * lex_data, int nbCaracteres);
+char * str_cut(char * startPos, int nbCaracteres);
 
 /**
  * \fn int isSep(const char _symb)

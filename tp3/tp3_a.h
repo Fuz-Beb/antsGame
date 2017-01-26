@@ -60,23 +60,21 @@ TSynt * initSyntData(char * _data);
 void deleteSyntData(TSynt ** _syntData);
 
 /**
- * \fn void synt(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid)
+ * \fn analyseurLR(TSynt * _syntData, TIntPile * pileInt)
  * \brief fonction qui effectue l'analyse syntaxique
  *
  * \param _syntData donnees de suivi de l'analyse syntaxique
  * \param pileInt donnees de suivi de la pile INT
- * \param pileVoid donnees de suivi de la pile VOID
  * \return neant
 */
-void synt(TSynt * _syntData, TIntPile * pileInt);
+int analyseurLR(TSynt * _syntData, TIntPile * pileInt);
 
 /**
- * \fn void deplacement(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int numEtat)
+ * \fn void deplacement(TSynt * _syntData, TIntPile * pileInt, int numEtat)
  * \brief fonction qui place le numéro d'un état dans la pile
  *
  * \param _syntData donnees de suivi de l'analyse syntaxique
  * \param pileInt donnees de suivi de la pile INT
- * \param pileVoid donnees de suivi de la pile VOID
  * \param numEtat numero de l'état concerne
  * \return neant
 */
@@ -84,12 +82,11 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, int numEtat);
 
 
 /**
- * \fn void reduction(TSynt * _syntData, TIntPile * pileInt, TVoidPile * pileVoid, int numEtat)
+ * \fn void reduction(TSynt * _syntData, TIntPile * pileInt, int numEtat)
  * \brief fonction qui effectue la reduction syntaxique
  *
  * \param _syntData donnees de suivi de l'analyse syntaxique
  * \param pileInt donnees de suivi de la pile INT
- * \param pileVoid donnees de suivi de la pile VOID
  * \param numEtat numero de l'état concerne
  * \return neant
 */

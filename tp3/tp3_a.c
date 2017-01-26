@@ -74,41 +74,13 @@ void deleteSyntData(TSynt ** _syntData)
 {
     free(_syntData[0]->data);
     free(_syntData[0]->startPos);
+    free(_syntData[0]->symOk);
     free(_syntData[0]);
 }
 
 
-
 /**
- * \fn char * subStringSynt(TSynt * _syntData, int nbCaracteres)
- * \brief fonction qui rogne une chaine de caracteres
- *
- * \param lex_data donnees de suivi de l'analyse syntaxique
- * \param[in] nbCaracteres le nombre de caracteres a supprimer
- * \return la nouvelle chaine de caracteres
- */
-char * subStringSynt(TSynt * _syntData, int nbCaracteres)
-{
-	char * temp = (char*) malloc(sizeof(char) * (strlen(_syntData->startPos) + 1));
-	temp = strcpy(temp, _syntData->startPos);
-	free(_syntData->startPos);
-
-	_syntData->startPos = strdup(temp + nbCaracteres);
-
-	if (_syntData->startPos == NULL)
-	{
-		printf("ERREUR : ALLOCATION DYNAMIQUE IMPOSSIBLE DE _syntData->startPos");
-		exit(EXIT_FAILURE);
-	}
-	free(temp);
-
-	return _syntData->startPos;
-
-}
-
-
-/**
- * \fn void synt(TSynt * _syntData, TIntPile * pileInt)
+ * \fn int analyseurLR(TSynt * _syntData, TIntPile * pileInt)
  * \brief fonction qui effectue l'analyse syntaxique
  *
  * \param _syntData donnees de suivi de l'analyse syntaxique
@@ -116,16 +88,16 @@ char * subStringSynt(TSynt * _syntData, int nbCaracteres)
  * \param pileVoid donnees de suivi de la pile VOID
  * \return neant
 */
-void synt(TSynt * _syntData, TIntPile * pileInt)
+int analyseurLR(TSynt * _syntData, TIntPile * pileInt)
 {
+	unsigned int returnValue = 2;
 
-	while (1)
+	while (returnValue == 2)
 	{
 		while (isSep(_syntData->startPos[0]))
-        	_syntData->startPos = subStringSynt(_syntData, 1);
+        	_syntData->startPos = str_cut(_syntData->startPos, 1);
 
 		int etape = sommetInt(pileInt);
-		printf("LETTRE : %d\n", etape);
 
 		switch (etape) {
 			case 0:
@@ -134,20 +106,17 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 2);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
 			case 1:
 				switch (_syntData->startPos[0]) {
 					case '#':
-						printf("-- ACCEPTER -- ");
-						exit(0);
+						returnValue = 1;
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -160,8 +129,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 6);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -171,8 +139,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 7);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -185,8 +152,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 8);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -205,8 +171,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 1);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -216,8 +181,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 9);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -236,8 +200,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 2);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -247,8 +210,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 6);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -276,8 +238,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 19);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -287,8 +248,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 4);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -304,8 +264,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 12);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -321,8 +280,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 13);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -335,8 +293,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 5);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -367,8 +324,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 19);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -384,8 +340,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 10);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -401,8 +356,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 11);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -418,8 +372,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 14);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -435,8 +388,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 15);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -452,8 +404,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 16);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -463,8 +414,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 23);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -477,8 +427,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 24);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -494,8 +443,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 6);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -511,8 +459,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 7);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -543,8 +490,7 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						deplacement(_syntData, pileInt, 19);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
@@ -554,18 +500,16 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 						reduction(_syntData, pileInt, 9);
 						break;
 					default :
-						printf("Element non reconnu !!! ");
-						exit(0);
+						returnValue = 0;
 						break;
 				}
 				break;
 			default:
-				printf("Element non reconnu !!! ");
-				printf("%d", etape);
-				exit(0);
+				returnValue = 0;
 				break;
 		}
 	}
+	return returnValue;
 }
 
 /**
@@ -580,21 +524,15 @@ void synt(TSynt * _syntData, TIntPile * pileInt)
 */
 void deplacement(TSynt * _syntData, TIntPile * pileInt, int numEtat){
 
-	printf("\nUN PASSAGE DEPLACEMENT !\nNum état : %d\n", numEtat);
-
 	// Gestion pile INT
 	empilerInt(pileInt, numEtat);
-	printf("PILE INT : ");
-	printIntPile(pileInt);
 
 	_syntData->seqOk += 1;
-	printf("seqOk : %d\n", _syntData->seqOk);
 	_syntData->symOk = realloc (_syntData->symOk, (sizeof(char) * _syntData->seqOk) + 1);
 	_syntData->symOk[_syntData->seqOk - 1] = _syntData->startPos[0];
 	_syntData->symOk[_syntData->seqOk] = '\0';
-	printf("symOk : %s\n", _syntData->symOk);
 
-	_syntData->startPos = subStringSynt(_syntData, 1);
+	_syntData->startPos = str_cut(_syntData->startPos, 1);
 }
 
 
@@ -609,13 +547,8 @@ void deplacement(TSynt * _syntData, TIntPile * pileInt, int numEtat){
  * \return neant
 */
 void reduction(TSynt * _syntData, TIntPile * pileInt, int numEtat){
-	printf("\nUN PASSAGE REDUCTION\n");
-	int nbr_symb_pile = GRAMMAIRE_NBR_LETTRE[numEtat];
 
-	printf("PILE : ");
-	printIntPile(pileInt);
-	printf("numEtat : %d\n", numEtat);
-	printf("seqOk : %d\n", nbr_symb_pile);
+	int nbr_symb_pile = GRAMMAIRE_NBR_LETTRE[numEtat];
 
 	while (nbr_symb_pile != 0){
 
@@ -629,12 +562,8 @@ void reduction(TSynt * _syntData, TIntPile * pileInt, int numEtat){
 	_syntData->seqOk = _syntData->seqOk - GRAMMAIRE_NBR_LETTRE[numEtat] + 1;
 	_syntData->symOk[(nbr_symb_pile + 1) - GRAMMAIRE_NBR_LETTRE[numEtat]] = '\0';
 
-	printf("symOk : %s\n", _syntData->symOk);
 	int valeur = goTo(_syntData, pileInt);
-	printf("goto : %d\n", valeur);
 	empilerInt(pileInt, valeur);
-	printf("NOUVELLE PILE : ");
-	printIntPile(pileInt);
 }
 
 
@@ -737,6 +666,7 @@ int main(int argc, char *argv[])
 	TIntPile * pileInt;
 	FILE* fichier = NULL;
 	long tailleFichier = 0;
+	unsigned int result;
 
 	if (argv[1] == NULL)
 	{
@@ -749,8 +679,8 @@ int main(int argc, char *argv[])
 
 	if(fichier == NULL)
 	{
-			printf("Erreur avec l'ouverture du fichier !");
-			exit(EXIT_FAILURE);
+		printf("Erreur avec l'ouverture du fichier !");
+		exit(EXIT_FAILURE);
 	}
 
 	fseek(fichier, 0, SEEK_END);
@@ -765,43 +695,37 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	printf("\n\n\n\n\n--------------------");
-
-	/*fgets(fichierChaine, tailleFichier, fichier);*/
 	fread(fichierChaine, (size_t)tailleFichier, 1, fichier);
-
-	/*test = strdup("{\"obj1\": [ {\"obj2\": 12, \"obj3\":\"text1 \\\"and\\\" text2\"},\n {\"obj4\":314.32} ], \"obj5\": true }");*/
-	/*test = strdup("{ \"test\" : 3.14, \"a\" : 1 , \"b\" : 2 , \"c\" : 3 }");*/
 
 	test = strndup(fichierChaine, tailleFichier);
 
 	fclose(fichier);
 
-	printf("\n-- CHAINE DE DEPART -- \n\n%s",test);
 
 	lex_data = initLexData(test);
 
-	printf("\n -- Affichage des léxèmes reconnus par l'analyseur lexical --\n\n");
 	obj = formatLex(lex_data);
 
-  	printLexData(lex_data);
 	deleteLexData(&lex_data);
 
-	printf("\n -- Affichage de la chaine formatée par l'analyseur lexical -- \n\n");
-	printf("%s\n\n", obj);
-
 	free(test);
+	free(fichierChaine);
 
 	// ANALYSE SYNTAXIQUE //
 	TSynt * synt_data;
 	synt_data = initSyntData(obj);
 	pileInt = initIntPile();
 
-	synt(synt_data, pileInt);
+	result = analyseurLR(synt_data, pileInt);
+
+	if (result == 1)
+		printf("\nAccepté ! \nValeur renvoyée : 1\n");
+	else
+		printf("\nRefusé ! \nValeur renvoyée : 0\n");
 
 	deleteIntPile(&pileInt);
 	deleteSyntData(&synt_data);
 	free(obj);
 
 	return 0;
-	}
+}
